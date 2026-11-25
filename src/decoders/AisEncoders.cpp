@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/AisEncoders.cpp
-//  Layer:  Library liboffgrid-decoders
+//  Layer:  Library libtuiradio-decoders
 //
 //  What this file does
 //  -------------------
@@ -289,7 +289,7 @@ std::vector<AisDemoBurst> aisDemoPlan(int year, int month, int day, int hour, in
     k = 0;
     for (double t = 4.4; t < 30; t += 10, ++k)
         plan.push_back(P{t, (k + 1) % 2, aisClassBMsg(wf, wfLat, wfLon, 5.6, 210.0, 211)});
-    plan.push_back(P{2.0, 0, aisStaticMsg(ex, 9876543, "MOGR7", "OFFGRID EXPLORER", 70, 128, 20, 7.4, "DUBLIN", 11, 2, 14, 30)});
+    plan.push_back(P{2.0, 0, aisStaticMsg(ex, 9876543, "MOGR7", "TUIRADIO EXPLORER", 70, 128, 20, 7.4, "DUBLIN", 11, 2, 14, 30)});
     plan.push_back(P{12.0, 1, aisStaticMsg(pl, 0, "MPLT4", "MERSEY PILOT", 50, 21, 6, 1.8, "LIVERPOOL", 0, 0, 24, 60)});
     plan.push_back(P{18.5, 0, aisStaticMsg(rv, 9765432, "EIRS5", "IRISH SEA ROVER", 80, 182, 32, 11.2, "LIVERPOOL", 10, 30, 6, 0)});
     plan.push_back(P{9.0, 1, aisStaticBNameMsg(wf, "WINDFALL")});

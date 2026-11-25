@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/DabDemoData.cpp
-//  Layer:  Library liboffgrid-decoders (internal, generated data)
+//  Layer:  Library libtuiradio-decoders (internal, generated data)
 //
 //  What this file does
 //  -------------------
@@ -13,9 +13,9 @@
 //  index.html: <script type="text/plain"> blocks id="dabdemoplus",
 //  "dabdemomp2", "dabdemospi"), base64:
 //    - dabdemoplus: 480 CIFs of 144 bytes (96 DAB+ super frames of 720
-//      bytes, Reed-Solomon parity included): "OFFgrid Plus", the demo
+//      bytes, Reed-Solomon parity included): "TUIRadio Plus", the demo
 //      jingle in AAC, with station text and a SlideShow in its PAD;
-//    - dabdemomp2: 480 CIFs of 144 bytes: "OFFgrid Classic", the jingle as
+//    - dabdemomp2: 480 CIFs of 144 bytes: "TUIRadio Classic", the jingle as
 //      MPEG Layer II frames at 48 kbit/s, with PAD;
 //    - dabdemospi: 480 CIFs of 48 bytes: the SPI service's packets (packet
 //      address 1), the station logos (MOT directory mode).

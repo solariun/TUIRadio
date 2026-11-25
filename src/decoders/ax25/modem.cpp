@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/ax25/modem.cpp
-//  Layer:  Library liboffgrid-decoders (internal to the AX.25 decoder)
+//  Layer:  Library libtuiradio-decoders (internal to the AX.25 decoder)
 //
 //  Where this file comes from
 //  --------------------------
@@ -30,7 +30,7 @@
 //       expected them (25 = on, under 10 = off; none for 4 bits = off).
 //  9600: low-pass, AGC, the same clock, then G3RUH descrambling and NRZI.
 //
-//  Changes from AX25Toolkit: see modem.h; each is marked "OFFgrid:".
+//  Changes from AX25Toolkit: see modem.h; each is marked "TUIRadio:".
 //
 //  How it fits in
 //  --------------
@@ -65,7 +65,7 @@ namespace modem {
 //  DSP primitives
 // ===========================================================================
 
-// OFFgrid: push_sample (a memmove per sample) is replaced by Delay::push in
+// TUIRadio: push_sample (a memmove per sample) is replaced by Delay::push in
 // modem.h.
 
 float Demodulator::convolve(const float* data, const float* filter, int taps) {
@@ -95,7 +95,7 @@ float Demodulator::agc(float in, float fast_attack, float slow_decay, float* pea
     return 0.0f;
 }
 
-// OFFgrid: unsigned state, kept to the 17 bits the polynomial uses (the
+// TUIRadio: unsigned state, kept to the 17 bits the polynomial uses (the
 // original shifted a signed int left without bound).
 int Demodulator::descramble(int in, unsigned int* state) {
     int out = (int)((unsigned int)in ^ (*state >> 16) ^ (*state >> 11)) & 1;
@@ -182,11 +182,11 @@ void Demodulator::gen_rrc_lowpass(float* filter, int taps, float rolloff, float 
 void Demodulator::init(Type type, int sample_rate, int num_slicers) {
     type_ = type;
     sample_rate_ = sample_rate;
-    // OFFgrid: per-slicer clock and DCD state.
+    // TUIRadio: per-slicer clock and DCD state.
     std::memset(sl_, 0, sizeof(sl_));
     num_slicers_ = std::max(1, std::min(MAX_SLICERS, num_slicers));
     if (type == GMSK_9600 || type == AIS) num_slicers_ = 1;
-    // OFFgrid: space-tone gains for slicers 1..n-1, 0.5 .. 4 evenly spaced
+    // TUIRadio: space-tone gains for slicers 1..n-1, 0.5 .. 4 evenly spaced
     // in the logarithm (Dire Wolf's MIN_G / MAX_G); slicer 0 uses the AGC.
     space_gain_[0] = 1.0f;
     for (int k = 1; k < num_slicers_; ++k)
@@ -208,7 +208,7 @@ void Demodulator::init(Type type, int sample_rate, int num_slicers) {
 
     // No transitions for too long → DCD off (silence / no signal)
     // Threshold: 4 bit periods worth of samples with no transition
-    // (OFFgrid: computed once here instead of every sample)
+    // (TUIRadio: computed once here instead of every sample)
     silence_thresh_ = (sample_rate_ * 4) / (type_ == GMSK_9600 ? 9600 :
                       type_ == AFSK_300 ? 300 : 1200);
 }
@@ -263,7 +263,7 @@ void Demodulator::init_afsk(int baud, int mark, int space) {
     if (afsk_.lp_filter_taps > MAX_FILTER) afsk_.lp_filter_taps = (MAX_FILTER - 1) | 1;
     gen_rrc_lowpass(afsk_.lp_filter, afsk_.lp_filter_taps, rrc_rolloff, (float)sample_rate_ / (float)baud);
 
-    // OFFgrid: delay line lengths.
+    // TUIRadio: delay line lengths.
     afsk_.raw_cb.taps = afsk_.pre_filter_taps;
     afsk_.m_I_raw.taps = afsk_.m_Q_raw.taps = afsk_.lp_filter_taps;
     afsk_.s_I_raw.taps = afsk_.s_Q_raw.taps = afsk_.lp_filter_taps;
@@ -300,7 +300,7 @@ void Demodulator::init_9600() {
 // ===========================================================================
 
 void Demodulator::process_sample(float fsam) {
-    // OFFgrid: float in (the original took int16 and divided by 16384).
+    // TUIRadio: float in (the original took int16 and divided by 16384).
     switch (type_) {
         case AFSK_1200:
         case AFSK_300:
@@ -348,7 +348,7 @@ void Demodulator::process_afsk(float fsam) {
 
     nudge_pll(0, m_norm - s_norm);
 
-    // OFFgrid: the other slicers (as Dire Wolf's demod_afsk.c with several
+    // TUIRadio: the other slicers (as Dire Wolf's demod_afsk.c with several
     // slicers): the raw strengths, the space tone scaled.
     for (int k = 1; k < num_slicers_; ++k)
         nudge_pll(k, m_amp - s_amp * space_gain_[k]);
@@ -365,7 +365,7 @@ void Demodulator::process_9600(float fsam) {
 }
 
 void Demodulator::nudge_pll(int k, float demod_out) {
-    Slicer& S = sl_[k];   // OFFgrid: per-slicer state
+    Slicer& S = sl_[k];   // TUIRadio: per-slicer state
     S.prev_d_c_pll_ = S.data_clock_pll_;
 
     // Advance PLL (unsigned add to avoid signed overflow)
@@ -398,7 +398,7 @@ void Demodulator::nudge_pll(int k, float demod_out) {
         // A "good" transition has PLL phase near zero (mid-point between samples)
         // PLL is signed 32-bit: 0 = perfect mid-bit, ±2^31 = worst
         // Good = PLL magnitude < 25% of full cycle
-        // (OFFgrid: magnitude in unsigned arithmetic: -INT_MIN is undefined)
+        // (TUIRadio: magnitude in unsigned arithmetic: -INT_MIN is undefined)
         unsigned int pll_mag = S.data_clock_pll_ < 0 ? 0u - (unsigned int)S.data_clock_pll_
                                                      : (unsigned int)S.data_clock_pll_;
         bool good = (pll_mag < 0x40000000u);  // < 25% of 2^32
@@ -433,13 +433,13 @@ void Demodulator::nudge_pll(int k, float demod_out) {
         S.dcd_ = false;
         S.dcd_shreg_ = 0;
         S.dcd_count_ = 0;
-        S.dcd_missing_ = silence_thresh_;   // OFFgrid: bounded (no overflow after hours of silence)
+        S.dcd_missing_ = silence_thresh_;   // TUIRadio: bounded (no overflow after hours of silence)
     }
 
     S.prev_demod_data_ = demod_data;
 }
 
-// OFFgrid: the Modulator is not copied (see modem.h).
+// TUIRadio: the Modulator is not copied (see modem.h).
 
 }  // namespace modem
 }  // namespace dec

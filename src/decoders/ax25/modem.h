@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/ax25/modem.h
-//  Layer:  Library liboffgrid-decoders (internal header of the AX.25 decoder)
+//  Layer:  Library libtuiradio-decoders (internal header of the AX.25 decoder)
 //
 //  Where this file comes from
 //  --------------------------
@@ -21,7 +21,7 @@
 //  9600 (baseband from the FM discriminator).  It does not know about HDLC
 //  flags or frames: hdlc.h does that.
 //
-//  Changes from AX25Toolkit (all marked "OFFgrid:" in modem.cpp):
+//  Changes from AX25Toolkit (all marked "TUIRadio:" in modem.cpp):
 //    - namespace modem -> dec::modem (so a program can link both libraries);
 //    - float input (nominal -1..1) instead of int16 / 16384;
 //    - several slicers (Dire Wolf's "multiple slicers", the "+" of its MODEM setting):
@@ -55,8 +55,8 @@
 // DSP algorithms derived from Dire Wolf by John Langner, WB2OSZ (GPLv2)
 // Original: https://github.com/wb2osz/direwolf
 // Simplified for kiss_modem: single-decoder, C++ classes, no global state
-#ifndef OFFGRID_DECODERS_AX25_MODEM_H
-#define OFFGRID_DECODERS_AX25_MODEM_H
+#ifndef TUIRADIO_DECODERS_AX25_MODEM_H
+#define TUIRADIO_DECODERS_AX25_MODEM_H
 
 #include <cstdint>
 #include <functional>
@@ -80,7 +80,7 @@ enum Type {
 // Maximum FIR filter taps
 static const int MAX_FILTER = 480;
 
-// OFFgrid: the most slicers one demodulator runs (Dire Wolf allows 9).
+// TUIRadio: the most slicers one demodulator runs (Dire Wolf allows 9).
 static const int MAX_SLICERS = 5;
 
 // ---------------------------------------------------------------------------
@@ -88,23 +88,23 @@ static const int MAX_SLICERS = 5;
 // ---------------------------------------------------------------------------
 class Demodulator {
 public:
-    // OFFgrid: the callback also says which slicer produced the bit.
+    // TUIRadio: the callback also says which slicer produced the bit.
     typedef std::function<void(int slicer, int bit)> BitCb;
 
-    // OFFgrid: num_slicers 1..MAX_SLICERS (AFSK only; 9600 always uses 1).
+    // TUIRadio: num_slicers 1..MAX_SLICERS (AFSK only; 9600 always uses 1).
     void init(Type type, int sample_rate, int num_slicers = 1);
-    // OFFgrid: float input, nominal -1..1 (must be finite: the caller checks).
+    // TUIRadio: float input, nominal -1..1 (must be finite: the caller checks).
     void process_sample(float sample);
     void set_on_bit(BitCb cb) { on_bit_ = cb; }
     void set_type(Type type);   // runtime switch (re-initializes filters)
-    bool dcd() const;                       // OFFgrid: any slicer has DCD
+    bool dcd() const;                       // TUIRadio: any slicer has DCD
     bool dcd(int slicer) const { return sl_[slicer].dcd_; }
-    int  dcd_count() const;                 // OFFgrid: best good-transition count (0..32)
+    int  dcd_count() const;                 // TUIRadio: best good-transition count (0..32)
     int  num_slicers() const { return num_slicers_; }
     int  sample_rate() const { return sample_rate_; }
 
 private:
-    // OFFgrid: a delay line written twice (at pos and pos + taps) so the last
+    // TUIRadio: a delay line written twice (at pos and pos + taps) so the last
     // `taps` samples are always contiguous: data()[j] is the sample j steps
     // ago, as the original memmove'd buffer had it.
     struct Delay {
@@ -119,7 +119,7 @@ private:
         const float* data() const { return buf + pos; }
     };
 
-    // OFFgrid: the bit clock and DCD, one per slicer (were members).
+    // TUIRadio: the bit clock and DCD, one per slicer (were members).
     struct Slicer {
         int   data_clock_pll_;
         int   prev_d_c_pll_;
@@ -136,7 +136,7 @@ private:
     Type  type_ = AFSK_1200;
     int   sample_rate_ = 44100;
     int   num_slicers_ = 1;
-    float space_gain_[MAX_SLICERS];  // OFFgrid: per slicer (slicer 0 uses the AGC)
+    float space_gain_[MAX_SLICERS];  // TUIRadio: per slicer (slicer 0 uses the AGC)
     int   silence_thresh_ = 0;
 
     // ----- AFSK state -----
@@ -166,7 +166,7 @@ private:
         float m_peak, m_valley;
         float s_peak, s_valley;
     } afsk_;
-    // OFFgrid: AX25Toolkit's "Profile B" (FM discriminator, disabled there)
+    // TUIRadio: AX25Toolkit's "Profile B" (FM discriminator, disabled there)
     // is not copied.
 
     // ----- 9600 baud state -----

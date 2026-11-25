@@ -1,4 +1,4 @@
-# liboffgrid-rtlsdr — an RTL-SDR driver in C++11, without libusb
+# libtuiradio-rtlsdr — an RTL-SDR driver in C++11, without libusb
 
 Drives RTL2832U sticks with R820T, R820T2 and R828D tuners (RTL-SDR Blog V3/V4,
 Nooelec NESDR and the like) straight through the operating system:
@@ -43,7 +43,7 @@ Every call returns `false` with `error()` on failure; it never throws.
 
 ## Build and link
 
-`make libs` builds `build/lib/liboffgrid-rtlsdr.a`. Link it with
+`make libs` builds `build/lib/libtuiradio-rtlsdr.a`. Link it with
 `-framework IOKit -framework CoreFoundation` on macOS, `-pthread` on Linux.
 `examples/fm-radio.cpp` and `tools/rtl-probe.cpp` use it. On Linux, give your user
-the stick with a udev rule (see TUI.md).
+the stick with a udev rule (see the top-level README.md).

@@ -1,16 +1,16 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/Drm.h
-//  Layer:  Library liboffgrid-decoders (public header)
+//  Layer:  Library libtuiradio-decoders (public header)
 //
 //  What this file does
 //  -------------------
 //  DRM (Digital Radio Mondiale, ETSI ES 201 980) receiver (Kind::Drm): the
 //  station's name, its settings, its services, its sound (AAC, through
-//  liboffgrid-codecs), its text message, its SlideShow pictures and its
+//  libtuiradio-codecs), its text message, its SlideShow pictures and its
 //  Journaline news pages, from the stick's IQ samples:
 //
 //      #include "decoders/Drm.h"
@@ -18,7 +18,7 @@
 //      // the stick anywhere near (e.g. 2.048 MS/s centred 200 kHz away), the
 //      // dial on the DRM station's frequency (its centre, k = 0):
 //      drm.processIq(iq, n, 2048000, centerHz, 11.700e6);
-//      dec::Status s = drm.status();      // "OFFgrid DRM · B 10 kHz 64-QAM ..."
+//      dec::Status s = drm.status();      // "TUIRadio · B 10 kHz 64-QAM ..."
 //      std::vector<dec::Service> sv = drm.services();
 //      std::vector<float> pcm; drm.takeAudio(pcm);   // stereo at audioRate()
 //      std::string t; drm.takeText(t);               // the text message
@@ -58,7 +58,7 @@
 //      multiplex frames, numbered by their place in the stream, join up
 //      across the overlapping windows without repeats;
 //    - the audio super frames give AAC access units (each with its DRM CRC
-//      byte) for liboffgrid-codecs' AAC decoder (faad2's DRM mode), the
+//      byte) for libtuiradio-codecs' AAC decoder (faad2's DRM mode), the
 //      text message (its last 4 bytes), and the data streams: MOT SlideShow
 //      pictures and Journaline pages (packet mode).
 //  The sound comes out about 5 s behind the signal (long interleaving and
@@ -75,9 +75,9 @@
 //
 //  How it fits in
 //  --------------
-//  Implements Decoder (Decoder.h).  Uses liboffgrid-dsp's FFT and
-//  liboffgrid-codecs' AAC decoder (src/codecs/Aac.h, through DrmAac.cpp;
-//  link liboffgrid-codecs).  No threads:
+//  Implements Decoder (Decoder.h).  Uses libtuiradio-dsp's FFT and
+//  libtuiradio-codecs' AAC decoder (src/codecs/Aac.h, through DrmAac.cpp;
+//  link libtuiradio-codecs).  No threads:
 //  each 1.2 s of signal costs one analysis inside processIq() (see the test's
 //  CPU line).  Signals for tests and the demo band: DrmEncoders.h.
 //
@@ -86,8 +86,8 @@
 //  Keep in step with the JS (the comments follow its wording).  The tests
 //  (tests/test_decoders_drm.cpp) run DrmEncoders.h's signals through it.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_DRM_H
-#define OFFGRID_DECODERS_DRM_H
+#ifndef TUIRADIO_DECODERS_DRM_H
+#define TUIRADIO_DECODERS_DRM_H
 
 #include <complex>
 #include <cstddef>
@@ -178,7 +178,7 @@ public:
     bool wantsIq() const { return true; }
     void processIq(const std::complex<float>* iq, std::size_t n, double rate, double centerHz, double dialHz);
 
-    // The sound (liboffgrid-codecs' AAC decoder): interleaved
+    // The sound (libtuiradio-codecs' AAC decoder): interleaved
     // stereo float at audioRate().
     bool hasAudio() const;
     int audioRate() const;
@@ -199,7 +199,7 @@ public:
     // Keep the access units for takeAccessUnits() (off by default).
     void setKeepAccessUnits(bool on);
     void takeAccessUnits(std::vector<DrmAccessUnit>& out);
-    // Whether an AAC decoder is there (always, now liboffgrid-codecs is required).
+    // Whether an AAC decoder is there (always, now libtuiradio-codecs is required).
     static bool aacAvailable();
 
 private:

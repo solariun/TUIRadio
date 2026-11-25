@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   tests/test_decoders_ais.cpp
-//  Layer:  Tests (Library liboffgrid-decoders)
+//  Layer:  Tests (Library libtuiradio-decoders)
 //
 //  What this file does
 //  -------------------
@@ -167,7 +167,7 @@ std::vector<Sent> testPlan() {
     std::vector<Sent> p;
     // Both channels at once: pairs overlap in time.
     p.push_back(Sent{0.050, 'A', dec::aisPositionMsg(kShip, 53.5210, -3.3520, 12.3, 285.4, 284, 0)});
-    p.push_back(Sent{0.060, 'B', dec::aisStaticMsg(kShip, 9876543, "MOGR7", "OFFGRID EXPLORER", 70, 128, 20, 7.4,
+    p.push_back(Sent{0.060, 'B', dec::aisStaticMsg(kShip, 9876543, "MOGR7", "TUIRADIO EXPLORER", 70, 128, 20, 7.4,
                                                    "DUBLIN", 11, 2, 14, 30)});
     p.push_back(Sent{0.150, 'B', dec::aisPositionMsg(kRover, -33.8568, 151.2153, 0.1, 0, 211, 1, 3)});
     p.push_back(Sent{0.155, 'A', dec::aisBaseMsg(kBase, 53.3100, -4.6300, 2026, 11, 25, 9, 8, 7)});
@@ -208,7 +208,7 @@ void checkFields(const std::vector<dec::AisMessage>& got, const std::string& tag
                  m.status == 0 && m.rot == -128 && !m.classB && m.repeat == 0;
         } else if (m.mmsi == kShip && m.type == 5) {
             ok = m.kind == dec::AisKind::Static && m.imo == 9876543 && m.callsign == "MOGR7" &&
-                 m.name == "OFFGRID EXPLORER" && m.shipType == 70 && near(m.lengthM, 128, 0) && near(m.beamM, 20, 0) &&
+                 m.name == "TUIRADIO EXPLORER" && m.shipType == 70 && near(m.lengthM, 128, 0) && near(m.beamM, 20, 0) &&
                  near(m.draughtM, 7.4, 1e-9) && m.destination == "DUBLIN" && m.eta == "02/11 14:30 UTC" &&
                  m.etaMonth == 11 && m.etaDay == 2 && m.etaHour == 14 && m.etaMinute == 30;
         } else if (m.mmsi == kRover) {
@@ -364,7 +364,7 @@ int main() {
                         dearmor(f[5], 0, bits) && bits == bitsOf(b);
         check(ok && cs, "AIVDM: type 1 = one sentence, 28 characters, fill 0, checksum, armoring", s.empty() ? "" : s[0]);
         const std::vector<unsigned char> st =
-            aisStaticMsg(kShip, 9876543, "MOGR7", "OFFGRID EXPLORER", 70, 128, 20, 7.4, "DUBLIN", 11, 2, 14, 30);
+            aisStaticMsg(kShip, 9876543, "MOGR7", "TUIRADIO EXPLORER", 70, 128, 20, 7.4, "DUBLIN", 11, 2, 14, 30);
         const std::vector<std::string> s5 = aisNmea(&st[0], st.size(), 'B', 3);
         std::vector<std::string> f1, f2;
         bool c1 = false, c2 = false;
@@ -459,7 +459,7 @@ int main() {
         feed(d, iq, 2048000, kAisCenter);
         AisVessel v;
         const bool have = d.vessel(kShip, v);
-        check(have && v.messages == 2 && v.name == "OFFGRID EXPLORER" && v.callsign == "MOGR7" && v.imo == 9876543 &&
+        check(have && v.messages == 2 && v.name == "TUIRADIO EXPLORER" && v.callsign == "MOGR7" && v.imo == 9876543 &&
                   v.destination == "DUBLIN" && v.eta == "02/11 14:30 UTC" && v.shipType == 70 && near(v.lat, 53.521, 1e-6) &&
                   near(v.sogKn, 12.3, 1e-9) && near(v.lengthM, 128, 0) && v.heardA && v.heardB && aisWhat(v) == "cargo",
               "vessel table: type 1 + type 5 merged for one MMSI (both channels)");
@@ -489,7 +489,7 @@ int main() {
             if (text[i] == '\n') ++lines;
         for (std::size_t at2 = text.find("!AIVDM"); at2 != std::string::npos; at2 = text.find("!AIVDM", at2 + 1)) ++nmeaLines;
         const bool hasLine =
-            text.find("AIS B 235012345 OFFGRID EXPLORER (cargo, UK): static: OFFGRID EXPLORER \xC2\xB7 call sign MOGR7 \xC2\xB7 IMO 9876543") !=
+            text.find("AIS B 235012345 TUIRADIO EXPLORER (cargo, UK): static: TUIRADIO EXPLORER \xC2\xB7 call sign MOGR7 \xC2\xB7 IMO 9876543") !=
             std::string::npos;
         check(hasLine && lines == 10 + 11 && nmeaLines == 11, "text: one line per message (+ !AIVDM lines when asked)",
               text.substr(0, text.find('\n')));

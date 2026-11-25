@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/Dab.cpp
-//  Layer:  Library liboffgrid-decoders
+//  Layer:  Library libtuiradio-decoders
 //
 //  What this file does
 //  -------------------
@@ -26,7 +26,7 @@
 //  "DAB / DAB+ (from 2.1)": dabFeed's retune, dabAutoPlay, dabChannelNear).
 //  The error correction, tables and PAD live in DabFec.cpp and DabPad.cpp
 //  (DabInternal.h); the codecs behind DabAudio.cpp.  The FFT is
-//  liboffgrid-dsp's (src/dsp/Fft.h).
+//  libtuiradio-dsp's (src/dsp/Fft.h).
 //
 //  Contributing
 //  ------------

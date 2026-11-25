@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/DrmInternal.h
-//  Layer:  Library liboffgrid-decoders (internal header, not installed)
+//  Layer:  Library libtuiradio-decoders (internal header, not installed)
 //
 //  What this file does
 //  -------------------
@@ -38,8 +38,8 @@
 //  Keep the names close to the JS's (drmIlTable -> ilTable, drmPattern ->
 //  makePattern, ...) so the two can be read side by side.  Strict C++11.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_DRM_INTERNAL_H
-#define OFFGRID_DECODERS_DRM_INTERNAL_H
+#ifndef TUIRADIO_DECODERS_DRM_INTERNAL_H
+#define TUIRADIO_DECODERS_DRM_INTERNAL_H
 
 #include <complex>
 #include <cstddef>
@@ -126,7 +126,7 @@ unsigned bitsNum(const unsigned char* b, std::size_t at, int n);
 void gainRefs(int mi, int s, int kmin, int kmax, std::vector<IntPair>& out);
 
 // A DFT of any length (the useful parts are 1152, 1024, 704 and 448
-// samples): Bluestein's method on liboffgrid-dsp's radix-2 FFT, or the FFT
+// samples): Bluestein's method on libtuiradio-dsp's radix-2 FFT, or the FFT
 // directly for a power of two.  X[k] = sum x[n] e^(-2 pi i k n / N).
 class Dft {
 public:
@@ -368,7 +368,7 @@ bool inflateRaw(const unsigned char* in, std::size_t n, Bytes& out, std::size_t 
 // ---- the sound (DrmAac.cpp) ----------------------------------------------------
 // The small interface the receiver codes against, so everything up to the
 // access units works (and is tested) without an AAC decoder; DrmAac.cpp
-// fills it from liboffgrid-codecs (codec::AacDecoder) when that is built in.
+// fills it from libtuiradio-codecs (codec::AacDecoder) when that is built in.
 class AudioCodec {
 public:
     virtual ~AudioCodec() {}
@@ -379,7 +379,7 @@ public:
     // (a bad CRC or a decoding error).
     virtual bool decode(const unsigned char* crcAndAu, std::size_t n, std::vector<float>& stereo, int& rate) = 0;
 };
-// null when the library was built without liboffgrid-codecs
+// null when the library was built without libtuiradio-codecs
 AudioCodec* makeAacCodec();
 
 }  // namespace drm

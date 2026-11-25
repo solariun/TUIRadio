@@ -1,6 +1,6 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - a terminal software-defined radio receiver, in C++11.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr).
+//  TUIRadio - a terminal software-defined radio receiver, in C++11.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/rtlsdr/Rtl2832u.h   (internal to src/rtlsdr)
@@ -35,8 +35,8 @@
 //  reference; keep them when changing values, they are the only docs most
 //  people will ever have for this chip.
 // ============================================================================
-#ifndef OFFGRID_RTLSDR_RTL2832U_H
-#define OFFGRID_RTLSDR_RTL2832U_H
+#ifndef TUIRADIO_RTLSDR_RTL2832U_H
+#define TUIRADIO_RTLSDR_RTL2832U_H
 
 #include <cstddef>
 #include <cstdint>

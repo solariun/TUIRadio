@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/DabInternal.h
-//  Layer:  Library liboffgrid-decoders (internal header, not installed)
+//  Layer:  Library libtuiradio-decoders (internal header, not installed)
 //
 //  What this file does
 //  -------------------
@@ -21,7 +21,7 @@
 //    - PAD: dynamic label (DLS), MOT SlideShow reassembly, the SPI service's
 //      packets and directory (station logos), DAB's character sets
 //      (DabPad.cpp);
-//    - a small interface to the audio codecs (liboffgrid-codecs' MP2 and
+//    - a small interface to the audio codecs (libtuiradio-codecs' MP2 and
 //      HE-AAC v2 decoders), so the receiver itself never depends on them
 //      (DabAudio.cpp wires them).
 //
@@ -39,8 +39,8 @@
 //  comment); mark changes "Addition to the JS".  Strict C++11, no
 //  allocation per sample.  Run tests/test_decoders_dab.cpp.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_DAB_INTERNAL_H
-#define OFFGRID_DECODERS_DAB_INTERNAL_H
+#ifndef TUIRADIO_DECODERS_DAB_INTERNAL_H
+#define TUIRADIO_DECODERS_DAB_INTERNAL_H
 
 #include <complex>
 #include <cstddef>
@@ -243,7 +243,7 @@ private:
     std::map<int, std::vector<unsigned char> > waiting_;
 };
 
-// ---- the audio codecs (DabAudio.cpp): liboffgrid-codecs behind a small
+// ---- the audio codecs (DabAudio.cpp): libtuiradio-codecs behind a small
 // interface (Addition to the JS, whose worker loads FAAD2 and pl_mpeg's MP2
 // as WebAssembly).
 struct AacFormat {

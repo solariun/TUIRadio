@@ -1,12 +1,12 @@
-# liboffgrid-decoders — radio text and picture decoders in C++11
+# libtuiradio-decoders — radio text and picture decoders in C++11
 
 Eighteen decoders behind one interface, each also usable alone through its own
 header. Input: mono demodulated audio (any rate from 8 kHz up), or the stick's IQ
 for VDL2, AIS, DAB and DRM. Output: text (pictures for fax and SSTV, columns for
 Hellschreiber, the time and the PC clock's error for time signals; for DAB and
 DRM also sound, a station list and slideshow pictures). No threads, no devices,
-no terminal: the standard library, liboffgrid-dsp's FFT and, for DAB and DRM's
-sound, liboffgrid-codecs.
+no terminal: the standard library, libtuiradio-dsp's FFT and, for DAB and DRM's
+sound, libtuiradio-codecs.
 
 | Decoder | Header | Class | What it reads |
 |---|---|---|---|
@@ -27,8 +27,8 @@ sound, liboffgrid-codecs.
 | WSPR | `Wspr.h` | `dec::WsprDecoder` | 2-minute slots, Fano decoder, about −28 dB; finds stations with the clock a minute out; measures the clock and the stick's frequency error |
 | Callsigns, locators | `Callsign.h` | `dec::countryOf`, `dec::Locator` | offline callsign → country (ITU prefixes and areas), Maidenhead ↔ lat/lon, distance and bearing, 620 cities |
 | Heard | `Heard.h` | `dec::HeardList` | every FT8/FT4/WSPR decode, band by band: stations, countries, farthest, open directions, trend |
-| DAB / DAB+ | `Dab.h` | `dec::DabDecoder` | digital radio from IQ at 2.048 MS/s (Band III, 5A–13F): lock, FIC, the ensemble and its stations, DAB+ (AAC) and classic DAB (MP2) sound through liboffgrid-codecs, dynamic label text, MOT slideshow and SPI logos; choose a station with `selectService` |
-| DRM | `Drm.h` | `dec::DrmDecoder` | Digital Radio Mondiale from IQ (48 kS/s up): robustness modes A–D, every occupancy, 4/16/64-QAM, FAC and SDC, up to four services, AAC sound (with SBR/PS) through liboffgrid-codecs, text messages, MOT slideshow, Journaline pages; xHE-AAC is recognised but not played |
+| DAB / DAB+ | `Dab.h` | `dec::DabDecoder` | digital radio from IQ at 2.048 MS/s (Band III, 5A–13F): lock, FIC, the ensemble and its stations, DAB+ (AAC) and classic DAB (MP2) sound through libtuiradio-codecs, dynamic label text, MOT slideshow and SPI logos; choose a station with `selectService` |
+| DRM | `Drm.h` | `dec::DrmDecoder` | Digital Radio Mondiale from IQ (48 kS/s up): robustness modes A–D, every occupancy, 4/16/64-QAM, FAC and SDC, up to four services, AAC sound (with SBR/PS) through libtuiradio-codecs, text messages, MOT slideshow, Journaline pages; xHE-AAC is recognised but not played |
 | AX.25 / APRS | `Ax25.h` | `dec::Ax25Decoder` | packet radio: AFSK 1200 (VHF), AFSK 300 (HF), G3RUH 9600; frames with digipeater paths; APRS positions (plain, compressed, Mic-E), weather, messages, status, objects, items, telemetry |
 
 Signal generators for each (tests, demos, training): `FskEncoders.h` (namespace

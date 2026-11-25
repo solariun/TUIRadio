@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/Clock.h
-//  Layer:  Library liboffgrid-decoders (public header)
+//  Layer:  Library libtuiradio-decoders (public header)
 //
 //  What this file does
 //  -------------------
@@ -46,8 +46,8 @@
 //  Keep it in step with the browser's clock section; mark deviations
 //  "Addition to the JS"; run tests/test_decoders_time.cpp.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_CLOCK_H
-#define OFFGRID_DECODERS_CLOCK_H
+#ifndef TUIRADIO_DECODERS_CLOCK_H
+#define TUIRADIO_DECODERS_CLOCK_H
 
 #include <string>
 #include <vector>
@@ -137,7 +137,7 @@ public:
     ClockAge age(double pcNow) const;
 
     // ---- storing ----
-    // A text form: "offgrid-clock 1" then key=value lines (offset, offsetAt,
+    // A text form: "tuiradio-clock 1" then key=value lines (offset, offsetAt,
     // drift, source, sourceAt, and one "measurement=at offset kind source"
     // line each).  Numbers are written with '.' decimals (C locale).
     std::string save() const;

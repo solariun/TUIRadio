@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/Wspr.h
-//  Layer:  Library liboffgrid-decoders (public header)
+//  Layer:  Library libtuiradio-decoders (public header)
 //
 //  What this file does
 //  -------------------
@@ -110,8 +110,8 @@
 //  marked "Addition to the JS" in Wspr.cpp.  Keep both versions in step;
 //  run tests/test_decoders_wspr.cpp.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_WSPR_H
-#define OFFGRID_DECODERS_WSPR_H
+#ifndef TUIRADIO_DECODERS_WSPR_H
+#define TUIRADIO_DECODERS_WSPR_H
 
 #include "Decoder.h"
 #include "../dsp/Fft.h"

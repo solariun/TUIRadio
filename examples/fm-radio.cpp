@@ -1,13 +1,13 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - example: a complete FM radio in about 100 lines.
+//  TUIRadio - example: a complete FM radio in about 100 lines.
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   examples/fm-radio.cpp
 //
 //  What this file does
 //  -------------------
-//  Shows the libraries used without the offgrid program: liboffgrid-rtlsdr
-//  (the stick), liboffgrid-dsp (WFM stereo + RDS) and liboffgrid-audio (the
+//  Shows the libraries used without the tuiradio program: libtuiradio-rtlsdr
+//  (the stick), libtuiradio-dsp (WFM stereo + RDS) and libtuiradio-audio (the
 //  speakers).  Plays a station and prints its RDS name and text.
 //
 //      make examples

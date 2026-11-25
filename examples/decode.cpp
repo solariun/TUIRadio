@@ -1,12 +1,12 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - example: decode a sound file with any decoder.
+//  TUIRadio - example: decode a sound file with any decoder.
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   examples/decode.cpp
 //
 //  What this file does
 //  -------------------
-//  Shows liboffgrid-decoders on its own: reads a WAV file (16-bit PCM or
+//  Shows libtuiradio-decoders on its own: reads a WAV file (16-bit PCM or
 //  32-bit float, mono or stereo, any rate), runs one decoder over it and
 //  prints the text (Hellschreiber: the picture as text art).
 //
@@ -14,7 +14,7 @@
 //      bin/example-decode rtty recording.wav
 //      bin/example-decode psk  psk31.wav
 //
-//  Record a signal with offgrid (USB mode, R key or --wav), or with any
+//  Record a signal with tuiradio (USB mode, R key or --wav), or with any
 //  program that saves the receiver's sound.
 // ============================================================================
 #include <algorithm>

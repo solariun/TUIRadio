@@ -1,6 +1,6 @@
 // ============================================================================
-//  offgrid-codecs - self-test of the AAC and MP2 decoders (part of OFFgrid-SDR
-//  TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - self-test of the AAC and MP2 decoders (part of TUIRadio,
+//  https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   tests/test_codecs.cpp
@@ -8,7 +8,7 @@
 //
 //  What this file does
 //  -------------------
-//  Self-checking test of liboffgrid-codecs.  Prints PASS/FAIL per check and
+//  Self-checking test of libtuiradio-codecs.  Prints PASS/FAIL per check and
 //  returns nonzero if anything failed.  Checks:
 //    - the real streams in tests/data decode without errors, at the right
 //      rate, channel count and frame count, with finite, sane-level samples:
@@ -644,7 +644,7 @@ void testMp2Damage(int rounds) {
 int main(int argc, char **argv) {
     if (argc > 1) g_dir = argv[1];
     int rounds = argc > 2 ? std::atoi(argv[2]) : 3000;
-    std::printf("offgrid-codecs self-test (data: %s)\n", g_dir.c_str());
+    std::printf("tuiradio-codecs self-test (data: %s)\n", g_dir.c_str());
     if (!loadReference()) {
         std::FILE *f = std::fopen(("../" + g_dir + "/codec_reference.txt").c_str(), "rb");
         if (f) {

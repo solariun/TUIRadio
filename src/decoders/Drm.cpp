@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/Drm.cpp
-//  Layer:  Library liboffgrid-decoders
+//  Layer:  Library libtuiradio-decoders
 //
 //  What this file does
 //  -------------------
@@ -277,6 +277,10 @@ public:
     // ---- what is known about the station, merged -----------------------------------
     void merge(const drm::RxResult& x) {
         if (!x.settings) return;
+        // Addition to the JS: a reading the other way round (mirrored or
+        // not) from fewer than 3 good FAC blocks is a lucky 8-bit CRC, not
+        // the station turning round: it must not replace what is known.
+        if (haveKnown && known.settings && x.mirrored != known.mirrored && x.facOk < 3) return;
         if (!haveKnown) known.clear();
         haveKnown = true;
         known.mode = x.mode;
@@ -330,7 +334,7 @@ public:
         if (x.mscCode == 1 || x.mscCode == 2) return "it uses hierarchical modulation, which can't be decoded yet";
         for (std::size_t q = 0; q < x.mux.streams.size(); ++q)
             if (x.mux.streams[q].first > 0) return "it uses two protection levels (unequal error protection), which can't be decoded yet";
-        if (!codec) return "no AAC decoder in this build (liboffgrid-codecs)";
+        if (!codec) return "no AAC decoder in this build (libtuiradio-codecs)";
         return "";
     }
 

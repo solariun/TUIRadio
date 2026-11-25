@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/Acars.h
-//  Layer:  Library liboffgrid-decoders (public header)
+//  Layer:  Library libtuiradio-decoders (public header)
 //
 //  What this file does
 //  -------------------
@@ -77,8 +77,8 @@
 //  .cpp.  No allocation per sample; strict C++11.  Run
 //  tests/test_decoders_aviation.cpp after any change.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_ACARS_H
-#define OFFGRID_DECODERS_ACARS_H
+#ifndef TUIRADIO_DECODERS_ACARS_H
+#define TUIRADIO_DECODERS_ACARS_H
 
 #include "Decoder.h"
 
@@ -156,7 +156,7 @@ public:
     // Each new message as (JS acarsLine / acarsBody, without the time):
     //   "ACARS  G-OFFG  OG0123  H1 from aircraft  [M01A]  (message to or
     //    from the crew or the aircraft's systems)\n"      (one line)
-    //   "  OFFGRID-SDR DEMO. CRUISE FL350, ...\n"
+    //   "  TUIRADIO DEMO. CRUISE FL350, ...\n"
     // The message number in [], the label's meaning in () when the JS table
     // has one and there is text (else the body is the meaning); every body
     // line indented by two spaces.

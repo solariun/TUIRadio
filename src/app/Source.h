@@ -1,6 +1,6 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - a terminal software-defined radio receiver, in C++11.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr).
+//  TUIRadio - a terminal software-defined radio receiver, in C++11.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/app/Source.h
@@ -18,8 +18,8 @@
 //  Every source delivers its bytes through a SampleQueue that the DSP
 //  thread reads, so the radio code is the same for all of them.
 // ============================================================================
-#ifndef OFFGRID_APP_SOURCE_H
-#define OFFGRID_APP_SOURCE_H
+#ifndef TUIRADIO_APP_SOURCE_H
+#define TUIRADIO_APP_SOURCE_H
 
 #include <atomic>
 #include <condition_variable>

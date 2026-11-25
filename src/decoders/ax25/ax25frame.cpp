@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/ax25/ax25frame.cpp
-//  Layer:  Library liboffgrid-decoders (internal to the AX.25 decoder)
+//  Layer:  Library libtuiradio-decoders (internal to the AX.25 decoder)
 //
 //  Where this file comes from
 //  --------------------------
@@ -22,7 +22,7 @@
 //
 //  Contributing
 //  ------------
-//  Changes from AX25Toolkit are marked "OFFgrid:".
+//  Changes from AX25Toolkit are marked "TUIRadio:".
 // ============================================================================
 //
 // =============================================================================
@@ -102,7 +102,7 @@ constexpr uint8_t DM_BASE   = 0x0F;
 constexpr uint8_t UI_BASE   = 0x03;
 constexpr uint8_t FRMR_BASE = 0x87;
 
-// (OFFgrid: the I/RR/REJ control-byte builders mk_i, mk_rr, mk_rej, used by
+// (TUIRadio: the I/RR/REJ control-byte builders mk_i, mk_rr, mk_rej, used by
 //  ax25lib's connected mode, are not copied: unused here)
 } // anon
 
@@ -141,14 +141,14 @@ bool Frame::decode(const std::vector<uint8_t>& raw, Frame& f) {
     bool last = (raw[pos + 6] & 0x01) != 0;
     pos += 7;
 
-    f.digis.clear();   // OFFgrid: `f` may be reused
+    f.digis.clear();   // TUIRadio: `f` may be reused
     while (!last && pos + 7 <= raw.size()) {
         Addr d = Addr::decode(&raw[pos]);
         last = (raw[pos + 6] & 0x01) != 0;
         f.digis.push_back(d);
         pos += 7;
     }
-    // OFFgrid: the address field must end, after at most 8 digipeaters.
+    // TUIRadio: the address field must end, after at most 8 digipeaters.
     if (!last || f.digis.size() > 8) return false;
 
     if (pos >= raw.size()) return false;
@@ -179,7 +179,7 @@ std::vector<uint8_t> Frame::encode() const {
     return out;
 }
 
-// (OFFgrid: Frame::format() not copied)
+// (TUIRadio: Frame::format() not copied)
 
 }  // namespace ax25
 }  // namespace dec

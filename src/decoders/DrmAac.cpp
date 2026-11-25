@@ -1,14 +1,14 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/DrmAac.cpp
-//  Layer:  Library liboffgrid-decoders
+//  Layer:  Library libtuiradio-decoders
 //
 //  What this file does
 //  -------------------
-//  The DRM receiver's sound: drm::makeAacCodec() wraps liboffgrid-codecs'
+//  The DRM receiver's sound: drm::makeAacCodec() wraps libtuiradio-codecs'
 //  AAC decoder (src/codecs/Aac.h, codec::AacDecoder: HE-AAC v2 with faad2's
 //  DRM mode) behind the small drm::AudioCodec interface the receiver codes
 //  against.
@@ -23,8 +23,8 @@
 //
 //  How it fits in
 //  --------------
-//  Declared in DrmInternal.h; used by Drm.cpp.  liboffgrid-codecs is a
-//  required library of liboffgrid-decoders (link liboffgrid-codecs.a).
+//  Declared in DrmInternal.h; used by Drm.cpp.  libtuiradio-codecs is a
+//  required library of libtuiradio-decoders (link libtuiradio-codecs.a).
 //
 //  Contributing
 //  ------------

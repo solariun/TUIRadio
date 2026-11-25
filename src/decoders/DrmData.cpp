@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/DrmData.cpp
-//  Layer:  Library liboffgrid-decoders
+//  Layer:  Library libtuiradio-decoders
 //
 //  What this file does
 //  -------------------
@@ -13,7 +13,7 @@
 //      AACSuperFrame): frame borders (12 bits each), one CRC byte per frame,
 //      then the frames -> AAC access units, each with its CRC byte (the CRC
 //      covers the AAC core's bits only, so the AAC decoder checks it: faad2's
-//      DRM mode, liboffgrid-codecs);
+//      DRM mode, libtuiradio-codecs);
 //    - the xHE-AAC audio super frame (Dream's XHEAACSuperFrame): a 2-byte
 //      header (frame border count, bit reservoir level, CRC-8), the payload,
 //      then a directory at the end (2 bytes per frame border, in reverse

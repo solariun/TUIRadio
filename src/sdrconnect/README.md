@@ -1,4 +1,4 @@
-# liboffgrid-sdrconnect: an SDRplay RSP through SDRconnect, in C++11
+# libtuiradio-sdrconnect: an SDRplay RSP through SDRconnect, in C++11
 
 Uses an **SDRplay RSP** (RSP1A, RSP1B, RSPdx, RSPduo and others) through SDRplay's
 **SDRconnect** and its **WebSocket API** (SDRplay's spec 1.0.3; SDRconnect 1.0.6 or
@@ -145,5 +145,5 @@ The test needs no RSP. It checks:
 - the framing, against the RFC's own example frames;
 - the client, against a **mock SDRconnect** running on localhost.
 
-In the static library build, `src/sdrconnect/*.cpp` becomes `liboffgrid-sdrconnect.a`.
+In the static library build, `src/sdrconnect/*.cpp` becomes `libtuiradio-sdrconnect.a`.
 Linking it needs only `-pthread`.

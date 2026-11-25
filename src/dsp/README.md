@@ -1,4 +1,4 @@
-# liboffgrid-dsp — radio signal processing in C++11
+# libtuiradio-dsp — radio signal processing in C++11
 
 IQ samples in, sound out, for one tuned signal; plus a spectrum analyser and a
 simulated band. No dependencies beyond the C++11 standard library.
@@ -11,7 +11,7 @@ simulated band. No dependencies beyond the C++11 standard library.
 | `dsp::convertU8` | the stick's unsigned bytes to complex samples |
 
 Everything public is in **`dsp/Receiver.h`**; the other headers are internals
-(`Fft.h` is shared with liboffgrid-decoders).
+(`Fft.h` is shared with libtuiradio-decoders).
 
 ## Use
 

@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/DabEncoders.cpp
-//  Layer:  Library liboffgrid-decoders
+//  Layer:  Library libtuiradio-decoders
 //
 //  What this file does
 //  -------------------
@@ -157,7 +157,7 @@ struct DabDemoMultiplex::Impl {
     // (the multiplex's ID 0x0FF6: an ID's first digit is its country, and 0 belongs to none)
     void buildFic() {
         std::vector<Bytes> figs;
-        figs.push_back(fig1(0, EID, "OFFgrid DAB"));
+        figs.push_back(fig1(0, EID, "TUIRadio DAB"));
         {
             const unsigned char b[] = {EID >> 8, EID & 255, 0, 0};
             figs.push_back(fig0(0, b, sizeof b));
@@ -170,7 +170,7 @@ struct DabDemoMultiplex::Impl {
             const unsigned char b[] = {(2 << 2) | 0, 36, 7};
             figs.push_back(fig0(1, b, sizeof b));
         }
-        {   // OFFgrid Plus's application: 2, the SlideShow, in its X-PAD (type 12, MOT)
+        {   // TUIRadio Plus's application: 2, the SlideShow, in its X-PAD (type 12, MOT)
             const unsigned char b[] = {0xf0, 0xd1, 0x01, 0x00, 0x42, 0x0c, 0x3c};
             figs.push_back(fig0(13, b, sizeof b));
         }
@@ -200,8 +200,8 @@ struct DabDemoMultiplex::Impl {
             const unsigned char b2[] = {0xf0, 0xd2, 1, 0, (2 << 2) | 2};
             figs.push_back(fig0(2, b2, sizeof b2));
         }
-        figs.push_back(fig1(1, 0xf0d1, "OFFgrid Plus"));
-        figs.push_back(fig1(1, 0xf0d2, "OFFgrid Classic"));
+        figs.push_back(fig1(1, 0xf0d1, "TUIRadio Plus"));
+        figs.push_back(fig1(1, 0xf0d2, "TUIRadio Classic"));
         std::vector<Bytes> cur;
         std::size_t used = 0;
         for (std::size_t i = 0; i < figs.size(); ++i) {

@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   tests/test_decoders_aviation.cpp
-//  Layer:  Tests (Library liboffgrid-decoders)
+//  Layer:  Tests (Library libtuiradio-decoders)
 //
 //  What this file does
 //  -------------------
@@ -110,10 +110,10 @@ struct Expect {
     bool down;
 };
 const Expect kAcarsExpect[4] = {
-    {"G-OFFG", "NAK", "H1", "3", "M01A", "OG0123", "OFFGRID-SDR DEMO. CRUISE FL350, FUEL 12.4T, ETA 1435Z", true},
+    {"G-OFFG", "NAK", "H1", "3", "M01A", "OG0123", "TUIRADIO DEMO. CRUISE FL350, FUEL 12.4T, ETA 1435Z", true},
     {"G-OFFG", "3", "_d", "A", "", "", "", false},
     {"G-OFFG", "NAK", "H1", "B", "", "", "WX REQ RESPONSE\nDEST 141420Z 24012KT 9999 SCT030 15/09 Q1018", false},
-    {"", "NAK", "SQ", " ", "", "", "02XAOFFGRID DEMO GROUND STATION", false},
+    {"", "NAK", "SQ", " ", "", "", "02XATUIRADIO DEMO GROUND STATION", false},
 };
 
 bool sameMsg(const dec::AcarsMessage& m, const Expect& e, std::string& why) {
@@ -176,7 +176,7 @@ void testAcarsRate(double rate, double sigma) {
     if (rate == 48000) std::printf("---- ACARS text lines ----\n%s--------------------------\n", text.c_str());
     std::snprintf(name, sizeof name, "ACARS @%.0f Hz: text lines (registration, flight, label meaning, text)", rate);
     check(text.find("ACARS  G-OFFG  OG0123  H1 from aircraft  [M01A]  (message to or from the crew") != std::string::npos &&
-              text.find("  OFFGRID-SDR DEMO. CRUISE FL350") != std::string::npos &&
+              text.find("  TUIRADIO DEMO. CRUISE FL350") != std::string::npos &&
               text.find("(no information (acknowledgement))") != std::string::npos &&
               text.find("ACARS  (no reg)  SQ to aircraft") != std::string::npos &&
               text.find("  DEST 141420Z") != std::string::npos,
@@ -325,7 +325,7 @@ void testVdl2Rate(double rate, bool verbose) {
         if (a->acars.blockId != "1" || !a->acars.down) why += " block=" + a->acars.blockId;
         if (a->acars.msgNo != "M01A") why += " msgNo=" + a->acars.msgNo;
         if (a->acars.ack != "NAK") why += " ack=" + a->acars.ack;
-        if (a->acars.text != "OFFGRID-SDR DEMO. VDL2 POSITION 5212N 00008E FL350") why += " text=" + a->acars.text;
+        if (a->acars.text != "TUIRADIO DEMO. VDL2 POSITION 5212N 00008E FL350") why += " text=" + a->acars.text;
         if (a->freqHz != 136.975e6) why += " channel";
         if (a->headLine().find("400ABC (UK)") == std::string::npos) why += " head=" + a->headLine();
     }

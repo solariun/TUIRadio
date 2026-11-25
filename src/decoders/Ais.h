@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/Ais.h
-//  Layer:  Library liboffgrid-decoders (public header)
+//  Layer:  Library libtuiradio-decoders (public header)
 //
 //  What this file does
 //  -------------------
@@ -24,7 +24,7 @@
 //
 //  One text line per message whose frame check (CRC-16) is right:
 //
-//      AIS A 235012345 OFFGRID EXPLORER (cargo, UK): position: 53.5210°N
+//      AIS A 235012345 TUIRADIO EXPLORER (cargo, UK): position: 53.5210°N
 //        3.3520°W · 12.3 kn, course 285° · heading 284° · under way ·
 //        74 km, bearing 279°
 //
@@ -78,8 +78,8 @@
 //  "Addition to the JS"; no allocation per sample; strict C++11.
 //  Run tests/test_decoders_ais.cpp.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_AIS_H
-#define OFFGRID_DECODERS_AIS_H
+#ifndef TUIRADIO_DECODERS_AIS_H
+#define TUIRADIO_DECODERS_AIS_H
 
 #include "Decoder.h"
 

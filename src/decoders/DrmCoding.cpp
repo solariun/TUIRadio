@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/DrmCoding.cpp
-//  Layer:  Library liboffgrid-decoders
+//  Layer:  Library libtuiradio-decoders
 //
 //  What this file does
 //  -------------------
@@ -24,7 +24,7 @@
 //  Differences from the JS:
 //    - the Viterbi decoder keeps its survivor tables between calls (the JS
 //      allocated two arrays a step) and normalises its metrics each step;
-//    - the DFT uses liboffgrid-dsp's float radix-2 FFT inside Bluestein's
+//    - the DFT uses libtuiradio-dsp's float radix-2 FFT inside Bluestein's
 //      method (the JS: its own double FFT), and the FFT directly when the
 //      length is a power of two (mode B): the same transform.
 //

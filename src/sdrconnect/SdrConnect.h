@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-sdrconnect - an SDRplay RSP through SDRplay's SDRconnect WebSocket
-//  API, in C++11 (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-sdrconnect - an SDRplay RSP through SDRplay's SDRconnect WebSocket
+//  API, in C++11 (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/sdrconnect/SdrConnect.h
-//  Layer:  Library liboffgrid-sdrconnect
+//  Layer:  Library libtuiradio-sdrconnect
 //
 //  What this file does
 //  -------------------
@@ -75,8 +75,8 @@
 //  JS".  Never set a property beyond SDRplay's specification 1.0.3: newer
 //  SDRconnect versions may have more, but only asking about them is safe.
 // ============================================================================
-#ifndef OFFGRID_SDRCONNECT_SDRCONNECT_H
-#define OFFGRID_SDRCONNECT_SDRCONNECT_H
+#ifndef TUIRADIO_SDRCONNECT_SDRCONNECT_H
+#define TUIRADIO_SDRCONNECT_SDRCONNECT_H
 
 #include <complex>
 #include <cstddef>
@@ -275,9 +275,9 @@ public:
     bool setLiteTuning(const std::string& demodulator, double vfoHz, double bandwidthHz);
     // OFFgrid-SDR's mode name -> SDRconnect's demodulator (SDRC_DEMOD; "USB"
     // for the data modes).
-    static std::string liteDemodulator(const std::string& offgridMode);
+    static std::string liteDemodulator(const std::string& appMode);
     // false for DAB, DRM, AIS, VDL2: they need the full stream.
-    static bool liteSupports(const std::string& offgridMode);
+    static bool liteSupports(const std::string& appMode);
     LiteStats liteStats() const;
     // Level of a spectrum byte, in dB (spectrum_base .. spectrum_ref_level).
     float spectrumDb(std::uint8_t value) const;

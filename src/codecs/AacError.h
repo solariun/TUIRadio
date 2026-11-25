@@ -1,13 +1,12 @@
 // ============================================================================
-//  offgrid-codecs - error messages (part of OFFgrid-SDR TUI,
-//  https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - error messages (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 //  Ported to C++11 from FAAD2 (GPL-2.0-or-later, commit a335040, as built by
 //  OFFgrid-SDR: see licenses/FAAD2). FAAD2's own notice, kept below, applies
 //  to the code taken from it; "Code from FAAD2 is copyright (c) Nero AG".
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/AacError.h
-//  Layer:  Library liboffgrid-codecs (internal: the FAAD2 port)
+//  Layer:  Library libtuiradio-codecs (internal: the FAAD2 port)
 //
 //  What this file does
 //  -------------------
@@ -57,8 +56,8 @@
 ** $Id: error.h,v 1.27 2008/09/19 23:31:40 menno Exp $
 **/
 
-#ifndef OFFGRID_CODECS_AACERROR_H
-#define OFFGRID_CODECS_AACERROR_H
+#ifndef TUIRADIO_CODECS_AACERROR_H
+#define TUIRADIO_CODECS_AACERROR_H
 
 #include "AacCommon.h"
 
@@ -71,4 +70,4 @@ extern const char *err_msg[];
 } // namespace faad
 } // namespace codec
 
-#endif // OFFGRID_CODECS_AACERROR_H
+#endif // TUIRADIO_CODECS_AACERROR_H

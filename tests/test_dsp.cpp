@@ -1,6 +1,6 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - a terminal software-defined radio receiver, in C++11.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr).
+//  TUIRadio - a terminal software-defined radio receiver, in C++11.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   tests/test_dsp.cpp
@@ -299,7 +299,7 @@ void testFmBand() {
               "got '" + r.ps + "'" + fmt(" after %.2f s, %.0f groups", p.psTime, r.groups));
         const std::vector<float> L = channelOf(p.audio, 0, 72000, 16384), R = channelOf(p.audio, 1, 72000, 16384);
         check(rms(L) > 0.05 && rms(R) > 0.05, nm + fmt(" audio present (RMS L %.3f, R %.3f)", rms(L), rms(R)));
-        if (p.name == "OFFGRID ") {
+        if (p.name == "TUIRADIO") {
             const double fl = peakFrequency(L, 48000), fr = peakFrequency(R, 48000);
             check(std::fabs(fl - 1000) < 3 && std::fabs(fr - 1500) < 3, nm + fmt(" left tone %.1f Hz, right tone %.1f Hz", fl, fr));
             const double sepL = 10 * std::log10(powerAt(L, 48000, 1000) / (powerAt(L, 48000, 1500) + 1e-20));

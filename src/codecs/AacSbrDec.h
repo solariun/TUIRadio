@@ -1,13 +1,12 @@
 // ============================================================================
-//  offgrid-codecs - SBR decoder (part of OFFgrid-SDR TUI,
-//  https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - SBR decoder (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 //  Ported to C++11 from FAAD2 (GPL-2.0-or-later, commit a335040, as built by
 //  OFFgrid-SDR: see licenses/FAAD2). FAAD2's own notice, kept below, applies
 //  to the code taken from it; "Code from FAAD2 is copyright (c) Nero AG".
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/AacSbrDec.h
-//  Layer:  Library liboffgrid-codecs (internal: the FAAD2 port)
+//  Layer:  Library libtuiradio-codecs (internal: the FAAD2 port)
 //
 //  What this file does
 //  -------------------
@@ -58,8 +57,8 @@
 ** $Id: sbr_dec.h,v 1.39 2007/11/01 12:33:34 menno Exp $
 **/
 
-#ifndef OFFGRID_CODECS_AACSBRDEC_H
-#define OFFGRID_CODECS_AACSBRDEC_H
+#ifndef TUIRADIO_CODECS_AACSBRDEC_H
+#define TUIRADIO_CODECS_AACSBRDEC_H
 
 #include "AacCommon.h"
 #include "AacPsDec.h"
@@ -259,4 +258,4 @@ uint8_t sbrDecodeSingleFramePS(sbr_info *sbr, real_t *left_channel, real_t *righ
 } // namespace faad
 } // namespace codec
 
-#endif // OFFGRID_CODECS_AACSBRDEC_H
+#endif // TUIRADIO_CODECS_AACSBRDEC_H

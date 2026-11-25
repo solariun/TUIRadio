@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/DrmEncoders.h
-//  Layer:  Library liboffgrid-decoders (public header)
+//  Layer:  Library libtuiradio-decoders (public header)
 //
 //  What this file does
 //  -------------------
@@ -16,18 +16,18 @@
 //
 //      #include "decoders/DrmEncoders.h"
 //      std::vector<std::complex<float> > iq;
-//      dec::drmSignal(dec::drmDemoStation(0), iq);   // "OFFgrid DRM", 12 s
+//      dec::drmSignal(dec::drmDemoStation(0), iq);   // "TUIRadio", 12 s
 //      // iq: complex samples at 48 kHz, the station's reference carrier
 //      // (k = 0) on 0 Hz, peak |I|,|Q| = 1: mix it to the station's
 //      // frequency (11.700 MHz) at the amplitude wanted, and loop it.
 //
 //  The demo's two stations (as the JS's demo band, 25 m):
-//    0: "OFFgrid DRM", 11.700 MHz: mode B, 10 kHz, 64-QAM (protection
+//    0: "TUIRadio", 11.700 MHz: mode B, 10 kHz, 64-QAM (protection
 //       level 1), short interleaving, 4-QAM SDC, AAC 24 kHz mono (the JS's
 //       12-second jingle, encoded with FAAC's DRM encoder), the station text,
 //       a SlideShow PNG and four Journaline pages; 10 superframes (12 s)
 //       that loop seamlessly; amplitude 0.05 in the JS's band.
-//    1: "OFFgrid xHE", 11.750 MHz: the same in xHE-AAC (the jingle's 150
+//    1: "TUIRadio X", 11.750 MHz: the same in xHE-AAC (the jingle's 150
 //       frames, three times over, filling 32 superframes, 38.4 s, exactly),
 //       text and picture (no Journaline: no room in its description).
 //  Output is IQ (not USB audio): DRM's reference carrier at 0 Hz.
@@ -49,8 +49,8 @@
 //  Deterministic (fixed seeds).  Whatever the receiver learns to read, the
 //  generator should learn to send, so the tests can check it.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_DRM_ENCODERS_H
-#define OFFGRID_DECODERS_DRM_ENCODERS_H
+#ifndef TUIRADIO_DECODERS_DRM_ENCODERS_H
+#define TUIRADIO_DECODERS_DRM_ENCODERS_H
 
 #include <complex>
 #include <string>
@@ -61,7 +61,7 @@ namespace dec {
 struct DrmTxOptions {
     DrmTxOptions()
         : mode(1), occupancy(3), qam16(false), protection(-1), longInterleave(false), sdc16(false),
-          label("OFFgrid DRM"), serviceId(0xf06001), language(5), programmeType(0), superframes(10), extras(false),
+          label("TUIRadio"), serviceId(0xf06001), language(5), programmeType(0), superframes(10), extras(false),
           slideshow(true), journaline(true), aacRateCode(3), sbr(false), audioMode(0), xhe(false) {}
     int mode;              // 0..3 = A..D
     int occupancy;         // 0..5 = 4.5, 5, 9, 10, 18, 20 kHz
@@ -79,7 +79,7 @@ struct DrmTxOptions {
     bool journaline;       //  (with extras, AAC only) the Journaline pages
     std::string text;      // the text message ("" = the JS's demo text)
     std::vector<unsigned char> picture;   // PNG (empty = the demo's)
-    std::string pictureName;              // ("" = "OFFgrid-SDR.png")
+    std::string pictureName;              // ("" = "TUIRadio.png")
     // AAC: access units, each [the DRM CRC byte][the AU]; empty = the demo
     // jingle (300 frames, 24 kHz mono, no SBR); taken in turn, 10 a
     // multiplex frame at rate code 3 (24 kHz), 5 at rate code 1 (12 kHz).
@@ -111,7 +111,7 @@ struct DrmTxReport {
 bool drmSignal(const DrmTxOptions& opt, std::vector<std::complex<float> >& iq, std::string* error = 0,
                DrmTxReport* report = 0);
 
-// The demo's stations: 0 "OFFgrid DRM" (AAC), 1 "OFFgrid xHE" (xHE-AAC).
+// The demo's stations: 0 "TUIRadio" (AAC), 1 "TUIRadio X" (xHE-AAC).
 DrmTxOptions drmDemoStation(int which);
 double drmDemoStationHz(int which);           // 11.700e6, 11.750e6
 double drmDemoStationAmplitude(int which);    // 0.05

@@ -1,13 +1,12 @@
 // ============================================================================
-//  offgrid-codecs - SBR time/frequency grid (part of OFFgrid-SDR TUI,
-//  https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - SBR time/frequency grid (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 //  Ported to C++11 from FAAD2 (GPL-2.0-or-later, commit a335040, as built by
 //  OFFgrid-SDR: see licenses/FAAD2). FAAD2's own notice, kept below, applies
 //  to the code taken from it; "Code from FAAD2 is copyright (c) Nero AG".
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/AacSbrTfGrid.h
-//  Layer:  Library liboffgrid-codecs (internal: the FAAD2 port)
+//  Layer:  Library libtuiradio-codecs (internal: the FAAD2 port)
 //
 //  What this file does
 //  -------------------
@@ -57,8 +56,8 @@
 ** $Id: sbr_tf_grid.h,v 1.17 2007/11/01 12:33:36 menno Exp $
 **/
 
-#ifndef OFFGRID_CODECS_AACSBRTFGRID_H
-#define OFFGRID_CODECS_AACSBRTFGRID_H
+#ifndef TUIRADIO_CODECS_AACSBRTFGRID_H
+#define TUIRADIO_CODECS_AACSBRTFGRID_H
 
 #include "AacCommon.h"
 
@@ -71,4 +70,4 @@ void noise_floor_time_border_vector(sbr_info *sbr, uint8_t ch);
 } // namespace faad
 } // namespace codec
 
-#endif // OFFGRID_CODECS_AACSBRTFGRID_H
+#endif // TUIRADIO_CODECS_AACSBRTFGRID_H

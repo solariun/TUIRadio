@@ -1,8 +1,15 @@
-# OFFgrid-SDR in the terminal (`offgrid`)
+# TUIRadio
 
-A C++11 port of OFFgrid-SDR that runs in a text terminal on **Linux and macOS**:
-one static binary, its own RTL-SDR driver (no librtlsdr, no libusb), and a full
-mouse-and-keyboard interface drawn with [Graphicx](https://github.com/solariun/Graphicx).
+A software-defined radio receiver for the text terminal, in strict C++11, on
+**Linux and macOS**: one static binary (`tuiradio`), its own RTL-SDR driver (no
+librtlsdr, no libusb), its own DSP, decoders and audio codecs (no third-party
+libraries), and a full mouse-and-keyboard interface drawn with
+[Graphicx](https://github.com/solariun/Graphicx). Every part is also a reusable
+static library.
+
+TUIRadio grew out of a C++ port of [OFFgrid-SDR](https://github.com/solariun/offgrid-sdr),
+diddy-boy's browser receiver: its signal chain, decoders and demo signals are where
+much of this code comes from (see *Credits*), but TUIRadio is its own program.
 
 ```
  █▀█ █▀█ █▀█ ▀▀█   WFM  NFM  AM  SAM  USB  LSB  CW           S ▮▮▮▮▮▮▮▮▮▮▮▮▮▮┃▯▯▯ -16.0 dB SNR 13
@@ -26,7 +33,7 @@ mouse-and-keyboard interface drawn with [Graphicx](https://github.com/solariun/G
 | **Display** | big frequency, mode buttons, status lights (stereo, RDS, squelch, overload, recording, mute), S-meter with peak hold and level history, spectrum (braille plot with the passband shaded), waterfall (half blocks, 9 colormaps), band list, controls, RDS line, status line |
 | **Controls** | tuning by step / typed frequency / mouse click, step sizes 1 Hz to 1 MHz, 41 bands, volume, mute, squelch, RF gain or auto, filter width, zoom x1-x32, waterfall floor and range (auto floor), stereo/mono, bias-tee, direct sampling, ppm correction |
 | **Decoders** | CW (speed learned), RTTY (shift, speed and polarity found), PSK31/63/125 (speed picked, AFC), NAVTEX (whole messages), DSC (ships' calls), Hellschreiber (picture); in a panel under the waterfall, or printed with `--headless` |
-| **Pictures** | weather fax (60–240 LPM, automatic slant) and SSTV (Martin M1/M2, Scottie S1/S2, PD90, PD120) drawn in the panel as they arrive and saved as PNG (`offgrid-FAX-…png`, `offgrid-SSTV-…png`) when each one ends |
+| **Pictures** | weather fax (60–240 LPM, automatic slant) and SSTV (Martin M1/M2, Scottie S1/S2, PD90, PD120) drawn in the panel as they arrive and saved as PNG (`tuiradio-FAX-…png`, `tuiradio-SSTV-…png`) when each one ends |
 | **Time and clock** | CHU, WWV/WWVH and RWM: the time and the computer clock's error (±2.5 ms); **T** (or *Set clock*) corrects the clock shown in the header (marked •), kept with its learned drift in `clock.txt` |
 | **AX.25 / APRS** | packet radio at 1200 Bd (VHF, e.g. APRS 144.800 / 144.390 MHz in NFM), 300 Bd (HF) and 9600 Bd: every frame with its path, and APRS positions (also Mic-E and compressed), weather, messages, status, objects, items and telemetry in plain words; built on [AX25Toolkit](https://github.com/solariun/AX25Toolkit) |
 | **Aviation** | ACARS (AM, 131.550 / 131.725 MHz …) and VDL2 (every channel 136.6–137 MHz at once): registrations, flights, labels, message text, aircraft countries |
@@ -46,34 +53,34 @@ mouse-and-keyboard interface drawn with [Graphicx](https://github.com/solariun/G
 | **Memories, labels, log** | named memories (frequency, mode, filter); your own labels drawn on the spectrum; a logbook (`logbook.csv`: UTC time, frequency, mode, level, SNR, station, notes) |
 | **Scan** | the current band in its channel steps, or the memories; stops on a signal, goes on 2 s after it ends |
 | **Calibration** | K on a station of known frequency (FM broadcast, a time signal): the stick's error in ppm is measured and corrected |
-| **Settings** | kept between runs in `~/.config/offgrid/settings.ini` (`--fresh` ignores them) |
+| **Settings** | kept between runs in `~/.config/tuiradio/settings.ini` (`--fresh` ignores them) |
 | **Recording** | the sound to a 16-bit stereo WAV (R key or `--wav`) |
-| **Themes** | amber (the browser version's default), orange, lime, green, cyan, vfd, blue, violet, rose, mono, light |
+| **Themes** | amber (the default), orange, lime, green, cyan, vfd, blue, violet, rose, mono, light |
 
-Everything of the browser version is ported. Not yet: playing xHE-AAC (DRM's newest
-codec; such stations are named and their text and pictures shown).
+Not yet: playing xHE-AAC (DRM's newest codec; such stations are named and their
+text and pictures shown).
 
 ### Decoders
 
-Press **d** and pick one (or `--decoder NAME`). As in the browser version, the dial
+Press **d** and pick one (or `--decoder NAME`). As in OFFgrid-SDR, the dial
 then shows the **signal's own frequency**: type the listed frequency (14.071 for
 PSK31, 518k for NAVTEX, 8414.5k for DSC) and the receiver sits below it in USB so the
 tones land where the decoder listens (1.5 kHz for RTTY/NAVTEX/DSC, 1 kHz for PSK and
 Hell; CW uses the CW mode). A green marker on the spectrum shows where the decoder
 expects the signal. **D** switches the decoder off.
 
-Try them with no hardware: `bin/offgrid --demo -f 7.355M --decoder rtty` (also
+Try them with no hardware: `bin/tuiradio --demo -f 7.355M --decoder rtty` (also
 7.312M RTTY, 7.275M CW, 14.071M PSK31, 7.0425M PSK63, 518k NAVTEX, 8414.5k DSC,
 14.0635M Hell, 7.880M fax, 14.230M SSTV, 7.850M CHU and 10M WWV time signals,
 144.800M APRS, 131.55M ACARS, 136.8M VDL2, 162M AIS, 14.074M FT8, 14.080M FT4,
-14.0956M WSPR, 223.936M DAB (channel 12A: "OFFgrid DAB" with a DAB+ and a classic
-station), 11.7M DRM ("OFFgrid DRM" with sound, text, a picture and Journaline) and
-11.75M DRM xHE). Or tune anywhere and press **A**.
+14.0956M WSPR, 223.936M DAB (channel 12A: "TUIRadio DAB" with a DAB+ and a classic
+station), 11.7M DRM ("TUIRadio" with sound, text, a picture and Journaline) and
+11.75M DRM xHE ("TUIRadio X")). Or tune anywhere and press **A**.
 
 Decoders run on a thread of their own, so a heavy decode (an FT8 or WSPR slot,
 up to about a second of work) never interrupts the sound or the display.
 
-Each decoder sets the radio the way the browser version does (`src/app/DecoderPlan.h`):
+Each decoder sets the radio as OFFgrid-SDR does (`src/app/DecoderPlan.h`):
 FAX USB 1.9 kHz below; SSTV on the frequency in USB (LSB below 10 MHz, NFM above
 30 MHz); TIME USB 1 kHz below, the station picked from the frequency; AX.25 in NFM
 at 1200 Bd above 30 MHz, in USB at 300 Bd below.
@@ -82,25 +89,25 @@ at 1200 Bd above 30 MHz, in USB at 300 Bd below.
 
 | File | Contents |
 |---|---|
-| `~/.config/offgrid/settings.ini` | the last frequency, mode, volume, theme, ppm …, the memories, the labels, each band's last frequency (plain text; written on exit) |
-| `~/.config/offgrid/logbook.csv` | the log, one line per entry, for any spreadsheet |
-| `~/.config/offgrid/clock.txt` | the clock correction, its source and history (the PC clock's drift) |
-| `offgrid-FAX-…png`, `offgrid-SSTV-…png`, `offgrid-DAB-…png`, `offgrid-…wav` | pictures and recordings, in the directory offgrid was started from |
-| `offgrid-…cu8`, `offgrid-snapshot-…png`, `offgrid-monitor-…csv` | saved IQ (*Save IQ*), screen pictures (*Snapshot*), the Signal Monitor's log |
+| `~/.config/tuiradio/settings.ini` | the last frequency, mode, volume, theme, ppm …, the memories, the labels, each band's last frequency (plain text; written on exit) |
+| `~/.config/tuiradio/logbook.csv` | the log, one line per entry, for any spreadsheet |
+| `~/.config/tuiradio/clock.txt` | the clock correction, its source and history (the PC clock's drift) |
+| `tuiradio-FAX-…png`, `tuiradio-SSTV-…png`, `tuiradio-DAB-…png`, `tuiradio-…wav` | pictures and recordings, in the directory tuiradio was started from |
+| `tuiradio-…cu8`, `tuiradio-snapshot-…png`, `tuiradio-monitor-…csv` | saved IQ (*Save IQ*), screen pictures (*Snapshot*), the Signal Monitor's log |
 
-`$XDG_CONFIG_HOME` moves them, and `OFFGRID_CONFIG=dir` overrides the directory.
+`$XDG_CONFIG_HOME` moves them, and `TUIRADIO_CONFIG=dir` overrides the directory.
 
 ## Build
 
 ```bash
-git clone --recursive https://github.com/solariun/offgrid-sdr.git
-cd offgrid-sdr
+git clone --recursive https://github.com/solariun/TUIRadio.git
+cd TUIRadio
 make
 ```
 
 Only a C++11 compiler and `make` are needed: no libraries.
 
-- **Linux:** the binary is **fully static** (`-static`): copy `bin/offgrid` to any
+- **Linux:** the binary is **fully static** (`-static`): copy `bin/tuiradio` to any
   Linux of the same CPU architecture. USB uses the kernel's usbfs and sound the
   kernel's ALSA interface directly. Needs the kernel headers that come with every
   compiler setup (`linux-libc-dev` on Debian/Ubuntu, `linux-headers` on Alpine).
@@ -108,7 +115,7 @@ Only a C++11 compiler and `make` are needed: no libraries.
   needs glibc's NSS at run time: that only affects `--tcp` with a host *name*
   (an IP address always works); building with musl (Alpine) avoids it.
 - **macOS:** Apple does not ship a static C library, so no Mac program can be
-  100% static. `bin/offgrid` links only libraries that are part of macOS itself
+  100% static. `bin/tuiradio` links only libraries that are part of macOS itself
   (libSystem, libc++, IOKit, CoreFoundation, AudioToolbox); nothing to install.
   `make check-static` shows the list.
 
@@ -123,24 +130,24 @@ echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="2838", MODE=
 sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
 
-Then unplug and replug the stick. (`offgrid` also detaches the TV driver by itself
-when it can.) Sound: `offgrid` opens the ALSA device directly; when PipeWire or
+Then unplug and replug the stick. (`tuiradio` also detaches the TV driver by itself
+when it can.) Sound: `tuiradio` opens the ALSA device directly; when PipeWire or
 PulseAudio already owns it (the usual desktop), it plays through `pw-cat`,
 `pacat` or `aplay` instead. `--audio hw:1,0` or `--audio pipe:COMMAND` chooses.
 
 ## Use
 
 ```bash
-bin/offgrid                          # first stick, 100 MHz WFM
-bin/offgrid -f 94.0 --theme vfd      # a station, another look
-bin/offgrid -f 7.1M -m lsb --direct 2   # 40 m on a stick without the V4's HF input
-bin/offgrid --tcp 192.168.1.20:1234  # an rtl_tcp server
-bin/offgrid --file capture.cu8 --center 145.8M --rate 2.048
-bin/offgrid --demo                   # no hardware: simulated stations
-bin/offgrid --headless 10 -f 94.0    # no interface: one status line per second
+bin/tuiradio                          # first stick, 100 MHz WFM
+bin/tuiradio -f 94.0 --theme vfd      # a station, another look
+bin/tuiradio -f 7.1M -m lsb --direct 2   # 40 m on a stick without the V4's HF input
+bin/tuiradio --tcp 192.168.1.20:1234  # an rtl_tcp server
+bin/tuiradio --file capture.cu8 --center 145.8M --rate 2.048
+bin/tuiradio --demo                   # no hardware: simulated stations
+bin/tuiradio --headless 10 -f 94.0    # no interface: one status line per second
 ```
 
-`offgrid --help` lists every option.
+`tuiradio --help` lists every option.
 
 ### Keys
 
@@ -160,7 +167,7 @@ bin/offgrid --headless 10 -f 94.0    # no interface: one status line per second
 | z / Z | zoom the spectrum and waterfall in / out |
 | [ ] { } | waterfall floor, waterfall range |
 | t, c | next theme, next waterfall colors |
-| R | record the sound to `offgrid-DATE-TIME.wav` |
+| R | record the sound to `tuiradio-DATE-TIME.wav` |
 | d / D | decoder menu / decoder off |
 | M, Del | save a memory here (named after the RDS station when there is one) / delete the selected memory |
 | l | label this frequency on the spectrum (empty text removes it) |
@@ -194,12 +201,12 @@ PREFIX=…` installs them with their headers, and each directory has a README:
 
 | Library | What it is |
 |---|---|
-| [`liboffgrid-rtlsdr`](src/rtlsdr/README.md) | the RTL-SDR driver (no libusb) |
-| [`liboffgrid-dsp`](src/dsp/README.md) | demodulators, RDS, spectrum, demo band, the clean-up filters and RNNoise voice cleaner, AUTO, the Signal Monitor, propagation guide, peak hold and alerts |
-| [`liboffgrid-decoders`](src/decoders/README.md) | CW, RTTY, PSK, NAVTEX, DSC, Hell, weather fax, SSTV, time signals (+ clock correction), AX.25/APRS, ACARS, VDL2, AIS, FT8, FT4, WSPR, DAB/DAB+, DRM, callsign/locator tools, the Heard list, and their signal generators |
-| [`liboffgrid-codecs`](src/codecs/README.md) | AAC (LC, HE-AAC, HE-AAC v2, DRM) and MPEG Layer II decoders, ports of FAAD2 and pl_mpeg |
-| [`liboffgrid-audio`](src/audio/README.md) | sound output (no sound libraries) |
-| [`liboffgrid-sdrconnect`](src/sdrconnect/README.md) | an SDRconnect client (WebSocket, own code) for SDRplay receivers |
+| [`libtuiradio-rtlsdr`](src/rtlsdr/README.md) | the RTL-SDR driver (no libusb) |
+| [`libtuiradio-dsp`](src/dsp/README.md) | demodulators, RDS, spectrum, demo band, the clean-up filters and RNNoise voice cleaner, AUTO, the Signal Monitor, propagation guide, peak hold and alerts |
+| [`libtuiradio-decoders`](src/decoders/README.md) | CW, RTTY, PSK, NAVTEX, DSC, Hell, weather fax, SSTV, time signals (+ clock correction), AX.25/APRS, ACARS, VDL2, AIS, FT8, FT4, WSPR, DAB/DAB+, DRM, callsign/locator tools, the Heard list, and their signal generators |
+| [`libtuiradio-codecs`](src/codecs/README.md) | AAC (LC, HE-AAC, HE-AAC v2, DRM) and MPEG Layer II decoders, ports of FAAD2 and pl_mpeg |
+| [`libtuiradio-audio`](src/audio/README.md) | sound output (no sound libraries) |
+| [`libtuiradio-sdrconnect`](src/sdrconnect/README.md) | an SDRconnect client (WebSocket, own code) for SDRplay receivers |
 
 `make examples` builds two small programs that use them: `example-fm-radio` (an FM
 radio with RDS in ~100 lines: driver + DSP + audio) and `example-decode` (decode a
@@ -230,9 +237,14 @@ spec.md       the specification: requirements, design, decisions, evidence, open
 
 ## Credits and license
 
-The terminal port is free software under the **GNU GPL, version 3 or later**,
-like OFFgrid-SDR itself. It ports OFFgrid-SDR by diddy-boy (the RDS decoder, the
-SAM demodulator, the band plan, the look); the RTL-SDR driver follows
+TUIRadio is free software under the **GNU GPL, version 3 or later** (`LICENSE`).
+It is derived from [OFFgrid-SDR](https://github.com/solariun/offgrid-sdr) by diddy-boy
+(GPL-3.0-or-later): the RDS decoder, the SAM demodulator, the clean-up filters,
+AUTO, the Signal Monitor, the decoders' designs, the DAB and DRM receivers, the
+band plan, the look and the demo signals are ported from it, and each source file
+says what it took. The AX.25 modem, HDLC and frames come from
+[AX25Toolkit](https://github.com/solariun/AX25Toolkit) (after Dire Wolf,
+GPL-2.0-or-later). The RTL-SDR driver follows
 [webrtlsdr](https://github.com/jtarrio/webrtlsdr) and
 [signals](https://github.com/jtarrio/signals) by Jacobo Tarrio (Apache-2.0),
 which follow librtlsdr (GPL-2.0-or-later). The AAC decoder ports

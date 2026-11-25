@@ -1,13 +1,13 @@
 // ============================================================================
-//  offgrid-codecs - MPEG Audio Layer II decoder for DAB (part of OFFgrid-SDR
-//  TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - MPEG Audio Layer II decoder for DAB (part of TUIRadio,
+//  https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 //  Ported to C++11 from pl_mpeg's MP2 decoder (Dominic Szablewski, MIT; based
 //  on kjmp2 by Martin J. Fiedler), with OFFgrid-SDR's DAB changes: see
 //  licenses/pi_mpeg.  pl_mpeg's notice is in Mp2.cpp.
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/Mp2.h
-//  Layer:  Library liboffgrid-codecs (public header)
+//  Layer:  Library libtuiradio-codecs (public header)
 //
 //  What this file does
 //  -------------------
@@ -58,8 +58,8 @@
 //  sample with the original C).  Strict C++11, no warnings with -Wall
 //  -Wextra -pedantic-errors.
 // ============================================================================
-#ifndef OFFGRID_CODECS_MP2_H
-#define OFFGRID_CODECS_MP2_H
+#ifndef TUIRADIO_CODECS_MP2_H
+#define TUIRADIO_CODECS_MP2_H
 
 #include <cstddef>
 #include <cstdint>
@@ -145,4 +145,4 @@ private:
 
 } // namespace codec
 
-#endif // OFFGRID_CODECS_MP2_H
+#endif // TUIRADIO_CODECS_MP2_H

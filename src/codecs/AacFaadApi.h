@@ -1,13 +1,12 @@
 // ============================================================================
-//  offgrid-codecs - internal faad2-style API (part of OFFgrid-SDR TUI,
-//  https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - internal faad2-style API (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 //  Ported to C++11 from FAAD2 (GPL-2.0-or-later, commit a335040, as built by
 //  OFFgrid-SDR: see licenses/FAAD2). FAAD2's own notice, kept below, applies
 //  to the code taken from it; "Code from FAAD2 is copyright (c) Nero AG".
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/AacFaadApi.h
-//  Layer:  Library liboffgrid-codecs (internal: the FAAD2 port)
+//  Layer:  Library libtuiradio-codecs (internal: the FAAD2 port)
 //
 //  What this file does
 //  -------------------
@@ -59,8 +58,8 @@
 ** $Id: neaacdec.h,v 1.14 2012/03/02 15:29:47 knik Exp $
 **/
 
-#ifndef OFFGRID_CODECS_AACFAADAPI_H
-#define OFFGRID_CODECS_AACFAADAPI_H
+#ifndef TUIRADIO_CODECS_AACFAADAPI_H
+#define TUIRADIO_CODECS_AACFAADAPI_H
 
 
 namespace codec {
@@ -253,4 +252,4 @@ NEAACDECAPI char NeAACDecAudioSpecificConfig(unsigned char *pBuffer,
 } // namespace faad
 } // namespace codec
 
-#endif // OFFGRID_CODECS_AACFAADAPI_H
+#endif // TUIRADIO_CODECS_AACFAADAPI_H

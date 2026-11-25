@@ -1,13 +1,12 @@
 // ============================================================================
-//  offgrid-codecs - reversible VLC scalefactors (part of OFFgrid-SDR TUI,
-//  https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - reversible VLC scalefactors (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 //  Ported to C++11 from FAAD2 (GPL-2.0-or-later, commit a335040, as built by
 //  OFFgrid-SDR: see licenses/FAAD2). FAAD2's own notice, kept below, applies
 //  to the code taken from it; "Code from FAAD2 is copyright (c) Nero AG".
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/AacRvlc.h
-//  Layer:  Library liboffgrid-codecs (internal: the FAAD2 port)
+//  Layer:  Library libtuiradio-codecs (internal: the FAAD2 port)
 //
 //  What this file does
 //  -------------------
@@ -58,8 +57,8 @@
 ** $Id: rvlc.h,v 1.17 2007/11/01 12:33:34 menno Exp $
 **/
 
-#ifndef OFFGRID_CODECS_AACRVLC_H
-#define OFFGRID_CODECS_AACRVLC_H
+#ifndef TUIRADIO_CODECS_AACRVLC_H
+#define TUIRADIO_CODECS_AACRVLC_H
 
 #include "AacCommon.h"
 
@@ -83,4 +82,4 @@ uint8_t rvlc_decode_scale_factors(ic_stream *ics, bitfile *ld);
 } // namespace faad
 } // namespace codec
 
-#endif // OFFGRID_CODECS_AACRVLC_H
+#endif // TUIRADIO_CODECS_AACRVLC_H

@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/PictureEncoders.h
-//  Layer:  Library liboffgrid-decoders (public header)
+//  Layer:  Library libtuiradio-decoders (public header)
 //
 //  What this file does
 //  -------------------
@@ -50,8 +50,8 @@
 //  Keep the output deterministic (no random numbers, no clocks): the tests
 //  compare decoded pictures against the input.  Strict C++11.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_PICTUREENCODERS_H
-#define OFFGRID_DECODERS_PICTUREENCODERS_H
+#ifndef TUIRADIO_DECODERS_PICTUREENCODERS_H
+#define TUIRADIO_DECODERS_PICTUREENCODERS_H
 
 #include "Fax.h"
 #include "Sstv.h"

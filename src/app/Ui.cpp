@@ -1,6 +1,6 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - a terminal software-defined radio receiver, in C++11.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr).
+//  TUIRadio - a terminal software-defined radio receiver, in C++11.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/app/Ui.cpp
@@ -622,7 +622,7 @@ void Ui::Impl::toggleRecording() {
     }
     std::time_t now = std::time(0);
     char name[64];
-    std::strftime(name, sizeof(name), "offgrid-%Y%m%d-%H%M%S.wav", std::localtime(&now));
+    std::strftime(name, sizeof(name), "tuiradio-%Y%m%d-%H%M%S.wav", std::localtime(&now));
     std::string error;
     if (!radio.startRecording(name, error)) showMessage("Recording", error);
 }
@@ -937,7 +937,7 @@ void Ui::Impl::savePicture(const Image& img, const std::string& kind) {
     std::time_t now = std::time(0);
     char name[96];
     std::strftime(name, sizeof(name), "%Y%m%d-%H%M%S.png", std::localtime(&now));
-    std::string path = "offgrid-" + kind + "-" + name;
+    std::string path = "tuiradio-" + kind + "-" + name;
     std::string error;
     if (savePng(path, img, error)) say("picture saved: " + path);
     else say(error);
@@ -1052,7 +1052,7 @@ void Ui::Impl::saveMonitorCsv() {
     }
     std::time_t now = std::time(0);
     char name[64];
-    std::strftime(name, sizeof(name), "offgrid-monitor-%Y%m%d-%H%M%S.csv", std::localtime(&now));
+    std::strftime(name, sizeof(name), "tuiradio-monitor-%Y%m%d-%H%M%S.csv", std::localtime(&now));
     std::ofstream f(name);
     f << radio.monitorCsv(monitorStart);
     if (f) say(std::string("saved ") + name);
@@ -1322,7 +1322,7 @@ void Ui::Impl::build() {
              char name[96];
              RadioSettings s = radio.settings();
              std::strftime(name, sizeof(name), "%Y%m%d-%H%M%S", std::localtime(&now));
-             std::string path = std::string("offgrid-") + name + fmt("-%.0fHz", snap.centerHz) + fmt("-%.0fsps.cu8", snap.sampleRate);
+             std::string path = std::string("tuiradio-") + name + fmt("-%.0fHz", snap.centerHz) + fmt("-%.0fsps.cu8", snap.sampleRate);
              std::string error;
              if (radio.saveIq(path, error)) say("saved " + path + " (play: --file it --center " + fmt("%.0f", snap.centerHz) + ")");
              else say(error);
@@ -1807,8 +1807,8 @@ void Ui::Impl::update() {
     ++framesSinceStart;
     if (showMessageLater && framesSinceStart == 3) {
         showMessageLater = false;
-        showMessage("Welcome to offgrid",
-                    "Setup (toolbar) tells offgrid where you are, for distances and bearings. K calibrates the stick on "
+        showMessage("Welcome to tuiradio",
+                    "Setup (toolbar) tells tuiradio where you are, for distances and bearings. K calibrates the stick on "
                     "a station of known frequency, T sets the clock from a time signal (FT8, FT4 and WSPR need it right). "
                     "F1 lists every key; the mouse works everywhere.");
     }

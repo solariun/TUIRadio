@@ -1,13 +1,12 @@
 // ============================================================================
-//  offgrid-codecs - intensity stereo (part of OFFgrid-SDR TUI,
-//  https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - intensity stereo (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 //  Ported to C++11 from FAAD2 (GPL-2.0-or-later, commit a335040, as built by
 //  OFFgrid-SDR: see licenses/FAAD2). FAAD2's own notice, kept below, applies
 //  to the code taken from it; "Code from FAAD2 is copyright (c) Nero AG".
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/AacIs.h
-//  Layer:  Library liboffgrid-codecs (internal: the FAAD2 port)
+//  Layer:  Library libtuiradio-codecs (internal: the FAAD2 port)
 //
 //  What this file does
 //  -------------------
@@ -58,8 +57,8 @@
 ** $Id: is.h,v 1.20 2007/11/01 12:33:31 menno Exp $
 **/
 
-#ifndef OFFGRID_CODECS_AACIS_H
-#define OFFGRID_CODECS_AACIS_H
+#ifndef TUIRADIO_CODECS_AACIS_H
+#define TUIRADIO_CODECS_AACIS_H
 
 #include "AacCommon.h"
 #include "AacSyntax.h"
@@ -93,4 +92,4 @@ static inline int8_t invert_intensity(ic_stream *ics, uint8_t group, uint8_t sfb
 } // namespace faad
 } // namespace codec
 
-#endif // OFFGRID_CODECS_AACIS_H
+#endif // TUIRADIO_CODECS_AACIS_H

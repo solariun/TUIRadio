@@ -1,13 +1,12 @@
 // ============================================================================
-//  offgrid-codecs - sine window tables (part of OFFgrid-SDR TUI,
-//  https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - sine window tables (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 //  Ported to C++11 from FAAD2 (GPL-2.0-or-later, commit a335040, as built by
 //  OFFgrid-SDR: see licenses/FAAD2). FAAD2's own notice, kept below, applies
 //  to the code taken from it; "Code from FAAD2 is copyright (c) Nero AG".
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/AacSineWin.h
-//  Layer:  Library liboffgrid-codecs (internal: the FAAD2 port)
+//  Layer:  Library libtuiradio-codecs (internal: the FAAD2 port)
 //
 //  What this file does
 //  -------------------
@@ -57,8 +56,8 @@
 ** $Id: sine_win.h,v 1.19 2007/11/01 12:33:36 menno Exp $
 **/
 
-#ifndef OFFGRID_CODECS_AACSINEWIN_H
-#define OFFGRID_CODECS_AACSINEWIN_H
+#ifndef TUIRADIO_CODECS_AACSINEWIN_H
+#define TUIRADIO_CODECS_AACSINEWIN_H
 
 #include "AacCommon.h"
 
@@ -2316,4 +2315,4 @@ static const real_t sine_short_120[] =
 } // namespace faad
 } // namespace codec
 
-#endif // OFFGRID_CODECS_AACSINEWIN_H
+#endif // TUIRADIO_CODECS_AACSINEWIN_H

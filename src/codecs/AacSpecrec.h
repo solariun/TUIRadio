@@ -1,13 +1,12 @@
 // ============================================================================
-//  offgrid-codecs - spectral reconstruction (part of OFFgrid-SDR TUI,
-//  https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - spectral reconstruction (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 //  Ported to C++11 from FAAD2 (GPL-2.0-or-later, commit a335040, as built by
 //  OFFgrid-SDR: see licenses/FAAD2). FAAD2's own notice, kept below, applies
 //  to the code taken from it; "Code from FAAD2 is copyright (c) Nero AG".
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/AacSpecrec.h
-//  Layer:  Library liboffgrid-codecs (internal: the FAAD2 port)
+//  Layer:  Library libtuiradio-codecs (internal: the FAAD2 port)
 //
 //  What this file does
 //  -------------------
@@ -59,8 +58,8 @@
 ** $Id: specrec.h,v 1.33 2009/01/26 23:51:15 menno Exp $
 **/
 
-#ifndef OFFGRID_CODECS_AACSPECREC_H
-#define OFFGRID_CODECS_AACSPECREC_H
+#ifndef TUIRADIO_CODECS_AACSPECREC_H
+#define TUIRADIO_CODECS_AACSPECREC_H
 
 #include "AacCommon.h"
 #include "AacSyntax.h"
@@ -77,4 +76,4 @@ uint8_t reconstruct_single_channel(NeAACDecStruct *hDecoder, ic_stream *ics, ele
 } // namespace faad
 } // namespace codec
 
-#endif // OFFGRID_CODECS_AACSPECREC_H
+#endif // TUIRADIO_CODECS_AACSPECREC_H

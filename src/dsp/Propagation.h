@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-dsp - reusable C++11 radio signal processing (part of OFFgrid-SDR
-//  TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-dsp - reusable C++11 radio signal processing (part of TUIRadio,
+//  https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/dsp/Propagation.h
-//  Layer:  Library liboffgrid-dsp (public header)
+//  Layer:  Library libtuiradio-dsp (public header)
 //
 //  What this file does
 //  -------------------
@@ -33,8 +33,8 @@
 //  11-year cycle rising for 4.8 years ...): keep them in step.  Strict C++11.
 //  Ported from OFFgrid-SDR by diddy-boy.
 // ============================================================================
-#ifndef OFFGRID_DSP_PROPAGATION_H
-#define OFFGRID_DSP_PROPAGATION_H
+#ifndef TUIRADIO_DSP_PROPAGATION_H
+#define TUIRADIO_DSP_PROPAGATION_H
 
 #include <string>
 #include <vector>

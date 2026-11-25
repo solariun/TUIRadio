@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   tests/test_decoders_dab.cpp
-//  Layer:  Tests (Library liboffgrid-decoders)
+//  Layer:  Tests (Library libtuiradio-decoders)
 //
 //  What this file does
 //  -------------------
@@ -16,11 +16,11 @@
 //      text, EEP/UEP protection, the channel table;
 //    - the multiplex, clean, at 2.048 MS/s: ensemble name and ID, both
 //      stations with format and bit rate, programme types, the default
-//      station (the first in the list), sub-channels; "OFFgrid Classic":
-//      MP2 frames identical to those sent; then "OFFgrid Plus": super
+//      station (the first in the list), sub-channels; "TUIRadio Classic":
+//      MP2 frames identical to those sent; then "TUIRadio Plus": super
 //      frames, Reed-Solomon, every audio unit identical to those sent (AU
 //      CRCs), the dynamic label (DLS), a SlideShow picture whose bytes are a
-//      JPEG / PNG, the SPI logos; once liboffgrid-codecs is built in, sound;
+//      JPEG / PNG, the SPI logos; once libtuiradio-codecs is built in, sound;
 //    - the same with noise (10 dB in the block) and the stick 12.3 kHz off;
 //      with the stick centred 150 kHz away from the channel (mixed in the
 //      decoder); with a single-frequency-network echo (a second
@@ -363,9 +363,9 @@ int main() {
     for (std::size_t o = 0; o + 144 <= mux.mp2Data().size(); o += 144)
         refMp2.push_back(Bytes(mux.mp2Data().begin() + static_cast<std::ptrdiff_t>(o), mux.mp2Data().begin() + static_cast<std::ptrdiff_t>(o + 144)));
 
-    std::printf("\ncodecs (liboffgrid-codecs) %s\n", DabDecoder().codecsAvailable() ? "built in: sound checked" : "not built in: decoded to audio units, no sound");
+    std::printf("\ncodecs (libtuiradio-codecs) %s\n", DabDecoder().codecsAvailable() ? "built in: sound checked" : "not built in: decoded to audio units, no sound");
 
-    // ---- clean: the list, the default station (MP2), then OFFgrid Plus ----
+    // ---- clean: the list, the default station (MP2), then TUIRadio Plus ----
     {
         DabDecoder d;
         d.setKeepUnits(true);
@@ -379,27 +379,27 @@ int main() {
         showText(r.text);
         const Status st = d.status();
         note("status: " + st.info);
-        check(d.ensembleLabel() == "OFFgrid DAB" && d.ensembleId() == 0x0FF6, "clean: ensemble \"OFFgrid DAB\", ID 0FF6", d.ensembleLabel());
+        check(d.ensembleLabel() == "TUIRadio DAB" && d.ensembleId() == 0x0FF6, "clean: ensemble \"TUIRadio DAB\", ID 0FF6", d.ensembleLabel());
         const std::vector<Service> sv = d.services();
         bool plus = false, classic = false;
         for (std::size_t i = 0; i < sv.size(); ++i) {
             { char idb[16]; std::snprintf(idb, sizeof idb, "%04X ", sv[i].id); note(std::string("service ") + idb + sv[i].label + " -- " + sv[i].detail + (sv[i].selected ? "  [selected]" : "")); }
-            if (sv[i].id == 0xF0D1 && sv[i].label == "OFFgrid Plus" && sv[i].bitrateKbps == 48 && contains(sv[i].detail, "DAB+") &&
+            if (sv[i].id == 0xF0D1 && sv[i].label == "TUIRadio Plus" && sv[i].bitrateKbps == 48 && contains(sv[i].detail, "DAB+") &&
                 contains(sv[i].detail, "Pop Music"))
                 plus = true;
-            if (sv[i].id == 0xF0D2 && sv[i].label == "OFFgrid Classic" && sv[i].bitrateKbps == 48 && contains(sv[i].detail, "DAB ") &&
+            if (sv[i].id == 0xF0D2 && sv[i].label == "TUIRadio Classic" && sv[i].bitrateKbps == 48 && contains(sv[i].detail, "DAB ") &&
                 contains(sv[i].detail, "Other Music"))
                 classic = true;
         }
         check(sv.size() == 2 && plus && classic, "clean: two services, labels, DAB+ / DAB, 48 kbit/s, programme types");
-        check(contains(r.text, "Station OFFgrid Classic"), "clean: default station = the first in the list (OFFgrid Classic)");
+        check(contains(r.text, "Station TUIRadio Classic"), "clean: default station = the first in the list (TUIRadio Classic)");
         const std::vector<Bytes> mp2 = bytesOf(r.units, false);
         const int m = matchCyclic(mp2, refMp2, mp2.size() > 2 ? 2 : 0);
-        check(mp2.size() > 50 && m >= static_cast<int>(mp2.size()) - 3, "clean: MP2 frames identical to those sent (OFFgrid Classic, sub-channel 2, UEP)",
+        check(mp2.size() > 50 && m >= static_cast<int>(mp2.size()) - 3, "clean: MP2 frames identical to those sent (TUIRadio Classic, sub-channel 2, UEP)",
               fmt("%.0f frames, %.0f matched, %.0f refused", double(mp2.size()), double(m), r.stats.mp2Bad));
-        check(d.selectedService() == 0xF0D1, "clean: selectService(F0D1) switched to OFFgrid Plus");
+        check(d.selectedService() == 0xF0D1, "clean: selectService(F0D1) switched to TUIRadio Plus");
         checkPlus("clean", r, refAus, true, 0.999);
-        check(contains(r.text, "OFFgrid Plus: ") && !d.dynamicLabel().empty(), "clean: dynamic label (DLS) text from OFFgrid Plus", d.dynamicLabel());
+        check(contains(r.text, "TUIRadio Plus: ") && !d.dynamicLabel().empty(), "clean: dynamic label (DLS) text from TUIRadio Plus", d.dynamicLabel());
         check(r.stats.fibs > 0 && r.stats.fibsOk == r.stats.fibs, "clean: every FIB's CRC right",
               fmt("%.0f / %.0f", r.stats.fibsOk, r.stats.fibs));
         check(st.locked && st.snrDb > 30 && st.quality > 0.99, "clean: status locked, SNR, FIC quality", st.info);
@@ -410,7 +410,7 @@ int main() {
                   fmt("%.0f stereo frames, now at %.0f Hz, %.0f codec errors, rms %.3f", double(r.pcm), d.audioRate(), r.stats.decodeErrors, rms));
         }
         else
-            note("(sound not checked: liboffgrid-codecs not built in)");
+            note("(sound not checked: libtuiradio-codecs not built in)");
         const double margin = c.seconds / r.cpu;
         check(margin > 3, "CPU: DAB+ station + FIC + SPI at 2.048 MS/s",
               fmt("%.1fx real time (%.1f%% of a core)", margin, 100 * r.cpu / c.seconds));
@@ -431,7 +431,7 @@ int main() {
         run(d, mux, c, r);
         std::printf("\n-- 10 dB SNR, stick 12.345 kHz off:\n");
         note("status: " + d.status().info);
-        check(d.ensembleLabel() == "OFFgrid DAB" && d.services().size() == 2, "noise+offset: ensemble and services");
+        check(d.ensembleLabel() == "TUIRadio DAB" && d.services().size() == 2, "noise+offset: ensemble and services");
         checkPlus("noise+offset", r, refAus, true, 0.99);
         check(!d.dynamicLabel().empty(), "noise+offset: DLS text", d.dynamicLabel());
         check(std::fabs(d.status().snrDb - 10) < 3, "noise+offset: SNR estimate near 10 dB", fmt("%.1f dB", d.status().snrDb));

@@ -1,11 +1,11 @@
 // ============================================================================
-//  offgrid-dsp - liboffgrid-dsp, the signal processing library of OFFgrid-SDR TUI.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr) by diddy-boy.
+//  tuiradio-dsp - libtuiradio-dsp, the signal processing library of TUIRadio.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later AND BSD-3-Clause
 //  (the weights below are RNNoise's; RNNoise's BSD notice is kept below)
 // ----------------------------------------------------------------------------
 //  File:   src/dsp/RnnoiseModel.cpp
-//  Layer:  Library liboffgrid-dsp
+//  Layer:  Library libtuiradio-dsp
 //
 //  What this file does
 //  -------------------

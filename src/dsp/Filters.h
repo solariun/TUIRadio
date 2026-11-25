@@ -1,6 +1,6 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - a terminal software-defined radio receiver, in C++11.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr).
+//  TUIRadio - a terminal software-defined radio receiver, in C++11.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/dsp/Filters.h
@@ -34,8 +34,8 @@
 //  kept "planar" (separate re[] and im[] arrays) because that is what lets
 //  the compiler keep the multiply-accumulate loops tight.
 // ============================================================================
-#ifndef OFFGRID_DSP_FILTERS_H
-#define OFFGRID_DSP_FILTERS_H
+#ifndef TUIRADIO_DSP_FILTERS_H
+#define TUIRADIO_DSP_FILTERS_H
 
 #include <cmath>
 #include <complex>

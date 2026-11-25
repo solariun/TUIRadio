@@ -1,13 +1,12 @@
 // ============================================================================
-//  offgrid-codecs - spectral Huffman codebooks (part of OFFgrid-SDR TUI,
-//  https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - spectral Huffman codebooks (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 //  Ported to C++11 from FAAD2 (GPL-2.0-or-later, commit a335040, as built by
 //  OFFgrid-SDR: see licenses/FAAD2). FAAD2's own notice, kept below, applies
 //  to the code taken from it; "Code from FAAD2 is copyright (c) Nero AG".
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/AacHcb.h
-//  Layer:  Library liboffgrid-codecs (internal: the FAAD2 port)
+//  Layer:  Library libtuiradio-codecs (internal: the FAAD2 port)
 //
 //  What this file does
 //  -------------------
@@ -58,8 +57,8 @@
 ** $Id: hcb.h,v 1.8 2007/11/01 12:34:10 menno Exp $
 **/
 
-#ifndef OFFGRID_CODECS_AACHCB_H
-#define OFFGRID_CODECS_AACHCB_H
+#ifndef TUIRADIO_CODECS_AACHCB_H
+#define TUIRADIO_CODECS_AACHCB_H
 
 #include "AacCommon.h"
 
@@ -2693,4 +2692,4 @@ static uint8_t hcb_sf[241][2] = {
 } // namespace faad
 } // namespace codec
 
-#endif // OFFGRID_CODECS_AACHCB_H
+#endif // TUIRADIO_CODECS_AACHCB_H

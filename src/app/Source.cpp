@@ -1,6 +1,6 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - a terminal software-defined radio receiver, in C++11.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr).
+//  TUIRadio - a terminal software-defined radio receiver, in C++11.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/app/Source.cpp
@@ -322,7 +322,7 @@ private:
 
 // ---------------------------------------------------------- SdrConnectSource --
 
-// An SDRplay RSP through SDRconnect (liboffgrid-sdrconnect): the full IQ
+// An SDRplay RSP through SDRconnect (libtuiradio-sdrconnect): the full IQ
 // stream, converted to the u8 samples every other source gives.
 class SdrConnectSource : public Source {
 public:
@@ -489,14 +489,14 @@ void addDecoderStations(dsp::DemoSource& demo) {
     const double r = 12000;  // audio rate of the generated programmes
     using namespace dec::enc;
     // RTTY: weather-style 50 Bd / 450 Hz and amateur 45.45 Bd / 170 Hz.
-    std::vector<float> a = rttyAudio("\nWEATHER BULLETIN OFFGRID MET 1200 UTC WIND SW 4 TO 5 SEA MODERATE VIS GOOD\n", 50, 450, 1500, r);
+    std::vector<float> a = rttyAudio("\nWEATHER BULLETIN TUIRADIO MET 1200 UTC WIND SW 4 TO 5 SEA MODERATE VIS GOOD\n", 50, 450, 1500, r);
     append(a, silence(2, r));
     demo.addAudioStation(7355000 - 1500, a, r, -38, dsp::Mode::USB, "RTTY 50/450");
-    a = rttyAudio("\nCQ CQ CQ DE OFFGRID OFFGRID PSE K\n", 45.45, 170, 1500, r);
+    a = rttyAudio("\nCQ CQ CQ DE TUIRADIO TUIRADIO PSE K\n", 45.45, 170, 1500, r);
     append(a, silence(3, r));
     demo.addAudioStation(7312000 - 1500, a, r, -40, dsp::Mode::USB, "RTTY 45/170");
     // CW 20 WPM (tone 700 Hz above the carrier).
-    a = cwAudio("CQ CQ DE OFFGRID OFFGRID K", 20, 700, r, 0.5, 0.5, 3.0);
+    a = cwAudio("CQ CQ DE TUIRADIO TUIRADIO K", 20, 700, r, 0.5, 0.5, 3.0);
     demo.addAudioStation(7275000 - 700, a, r, -40, dsp::Mode::CW, "CW 20 WPM");
     // NAVTEX 518 kHz (real phasing length, so the decoder catches ZCZC).
     a = navtexAudio("ZCZC SA23\nNITON NAVTEX DEMO\nGALE WARNING SOLE FITZROY SOUTHWEST GALE 8 EXPECTED\nNNNN\n", r, 1500);
@@ -512,15 +512,15 @@ void addDecoderStations(dsp::DemoSource& demo) {
     demo.addAudioStation(8414500 - 1500, a, r, -38, dsp::Mode::USB, "DSC 8414.5");
     // PSK31, PSK63 and Feld Hell (tone at 1000 Hz).
     a.clear();
-    dec::synthPsk("CQ CQ CQ de OFFGRID OFFGRID pse k\n", 31.25, r, a);
+    dec::synthPsk("CQ CQ CQ de TUIRADIO TUIRADIO pse k\n", 31.25, r, a);
     append(a, silence(3, r));
     demo.addAudioStation(14071000 - 1000, a, r, -40, dsp::Mode::USB, "PSK31");
     a.clear();
-    dec::synthPsk("OFFGRID PSK63 test: the quick brown fox jumps over the lazy dog\n", 62.5, r, a);
+    dec::synthPsk("TUIRADIO PSK63 test: the quick brown fox jumps over the lazy dog\n", 62.5, r, a);
     append(a, silence(3, r));
     demo.addAudioStation(7042500 - 1000, a, r, -40, dsp::Mode::USB, "PSK63");
     a.clear();
-    dec::synthHell("OFFGRID HELL 73", r, a);
+    dec::synthHell("TUIRADIO HELL 73", r, a);
     append(a, silence(2, r));
     demo.addAudioStation(14063500 - 1000, a, r, -38, dsp::Mode::USB, "HELL");
 
@@ -652,8 +652,8 @@ void addDecoderStations(dsp::DemoSource& demo) {
         }
         demo.addAudioStation(14080000, air4, fr, -46, dsp::Mode::USB, "FT4", t0);
     }
-    // DRM on 25 m (11.700 MHz "OFFgrid DRM", AAC with text, a slide and
-    // Journaline; 11.750 MHz "OFFgrid xHE", xHE-AAC: no sound yet): the
+    // DRM on 25 m (11.700 MHz "TUIRadio", AAC with text, a slide and
+    // Journaline; 11.750 MHz "TUIRadio X", xHE-AAC: no sound yet): the
     // browser version's demo loops, 48 kS/s IQ with DRM's k=0 at 0 Hz.
     for (int which = 0; which < 2; ++which) {
         std::vector<std::complex<float> > iq;
@@ -704,7 +704,7 @@ protected:
     }
 
 private:
-    // DAB: the browser version's demo multiplex ("OFFgrid DAB": a DAB+ and
+    // DAB: the browser version's demo multiplex ("TUIRadio DAB": a DAB+ and
     // an MP2 station, text, slides, logos) on 12A, 223.936 MHz.  Made only
     // while the stick is near it (it is 1.5 MHz wide, made on the fly at
     // 2.048 MS/s, about 2 % of a core), mixed in at the stick's offset.

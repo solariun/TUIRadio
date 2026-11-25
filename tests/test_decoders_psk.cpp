@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   tests/test_decoders_psk.cpp
-//  Layer:  Tests (Library liboffgrid-decoders)
+//  Layer:  Tests (Library libtuiradio-decoders)
 //
 //  What this file does
 //  -------------------
@@ -120,9 +120,9 @@ std::string feed(dec::Decoder& d, const std::vector<float>& a, double rate) {
 const double kSpeeds[3] = {31.25, 62.5, 125.0};
 const char* const kNames[3] = {"PSK31", "PSK63", "PSK125"};
 const char* const kTexts[3] = {
-    "CQ CQ de OFFGRID-SDR pse k\n",
+    "CQ CQ de TUIRADIO pse k\n",
     "PSK63 is twice as fast as PSK31, 73!\n",
-    "The PSK mode finds the speed by itself. 73 de OFFGRID-SDR\n",
+    "The PSK mode finds the speed by itself. 73 de TUIRADIO\n",
 };
 
 void testPsk() {
@@ -196,12 +196,12 @@ void testPskAutoSwitch() {
     std::vector<float> sig;
     dec::synthPsk("PSK125 over first, then PSK31\n", 125, rate, sig, 1000, 0.3);
     sig.resize(sig.size() + static_cast<std::size_t>(4 * rate), 0.0f);   // 4 s gap
-    dec::synthPsk("now PSK31 at the slow speed de OFFGRID\n", 31.25, rate, sig, 1010, 0.3);
+    dec::synthPsk("now PSK31 at the slow speed de TUIRADIO\n", 31.25, rate, sig, 1010, 0.3);
     const std::vector<float> a = withNoise(sig, rate, 0.5, 1.0, noiseSigma(0.3, 10, rate), 654);
     dec::PskAutoDecoder au;
     const std::string got = feed(au, a, rate);
     check(au.status().mode == "PSK31" && got.find("PSK125 over first, then PSK31\n") != std::string::npos &&
-              got.find("now PSK31 at the slow speed de OFFGRID\n") != std::string::npos,
+              got.find("now PSK31 at the slow speed de TUIRADIO\n") != std::string::npos,
           "PSK auto: PSK125 then PSK31, both overs, ends on PSK31",
           "mode \"" + au.status().mode + "\" text \"" + printable(got) + "\"");
 }
@@ -288,7 +288,7 @@ double corr(const std::vector<float>& a, std::size_t aoff, const std::vector<flo
 }
 
 void testHell() {
-    const std::string text = "OFFGRID-SDR HELL 73, CQ? 0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ./";
+    const std::string text = "TUIRADIO HELL 73, CQ? 0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ./";
     const double rates[2] = {48000, 12000};
     for (int r = 0; r < 2; ++r) {
         const double rate = rates[r];
@@ -364,7 +364,7 @@ void testHell() {
 void testHellSignalFlag() {
     const double rate = 48000;
     std::vector<float> over;
-    dec::synthHell("OFFGRID HELL 73", rate, over, 1000, 0.3);
+    dec::synthHell("TUIRADIO HELL 73", rate, over, 1000, 0.3);
     double ps = 0;
     for (std::size_t i = 0; i < over.size(); ++i) ps += over[i] * over[i];
     const double rmsSig = std::sqrt(ps / over.size());

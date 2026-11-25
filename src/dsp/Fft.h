@@ -1,6 +1,6 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - a terminal software-defined radio receiver, in C++11.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr).
+//  TUIRadio - a terminal software-defined radio receiver, in C++11.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/dsp/Fft.h
@@ -17,8 +17,8 @@
 //  floor estimate; the tests use it to find tone frequencies in audio.
 //  Same algorithm as jtarrio/signals' dsp/fft.ts.
 // ============================================================================
-#ifndef OFFGRID_DSP_FFT_H
-#define OFFGRID_DSP_FFT_H
+#ifndef TUIRADIO_DSP_FFT_H
+#define TUIRADIO_DSP_FFT_H
 
 #include <complex>
 #include <vector>

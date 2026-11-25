@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-dsp - liboffgrid-dsp, the signal processing library of OFFgrid-SDR TUI.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr) by diddy-boy.
+//  tuiradio-dsp - libtuiradio-dsp, the signal processing library of TUIRadio.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/dsp/AudioFilters.h
-//  Layer:  Library liboffgrid-dsp
+//  Layer:  Library libtuiradio-dsp
 //
 //  What this file does
 //  -------------------
@@ -54,8 +54,8 @@
 //  construction or only ever grow.  Credits: the algorithms and tuning are
 //  OFFgrid-SDR's (diddy-boy); this file is a translation.
 // ============================================================================
-#ifndef OFFGRID_DSP_AUDIOFILTERS_H
-#define OFFGRID_DSP_AUDIOFILTERS_H
+#ifndef TUIRADIO_DSP_AUDIOFILTERS_H
+#define TUIRADIO_DSP_AUDIOFILTERS_H
 
 #include <complex>
 #include <cstddef>

@@ -1,6 +1,6 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - a terminal software-defined radio receiver, in C++11.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr).
+//  TUIRadio - a terminal software-defined radio receiver, in C++11.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/app/Store.cpp
@@ -55,7 +55,7 @@ std::string number(double v) {
     return b;
 }
 
-// mkdir -p for one or two levels (~/.config/offgrid).
+// mkdir -p for one or two levels (~/.config/tuiradio).
 void makeDirs(const std::string& path) {
     for (size_t i = 1; i <= path.size(); ++i) {
         if (i == path.size() || path[i] == '/') mkdir(path.substr(0, i).c_str(), 0755);
@@ -79,11 +79,11 @@ std::string utcNow() {
 }
 
 std::string Store::directory() {
-    if (const char* o = std::getenv("OFFGRID_CONFIG")) return o;
+    if (const char* o = std::getenv("TUIRADIO_CONFIG")) return o;
     if (const char* x = std::getenv("XDG_CONFIG_HOME"))
-        if (*x) return std::string(x) + "/offgrid";
+        if (*x) return std::string(x) + "/tuiradio";
     const char* home = std::getenv("HOME");
-    return std::string(home ? home : ".") + "/.config/offgrid";
+    return std::string(home ? home : ".") + "/.config/tuiradio";
 }
 
 std::string Store::logPath() { return directory() + "/logbook.csv"; }
@@ -139,7 +139,7 @@ bool Store::save(std::string& error) const {
             error = "cannot write " + tmp;
             return false;
         }
-        out << "# offgrid settings (written on exit; safe to edit while offgrid is closed)\n\n[settings]\n";
+        out << "# tuiradio settings (written on exit; safe to edit while tuiradio is closed)\n\n[settings]\n";
         for (std::map<std::string, std::string>::const_iterator i = values.begin(); i != values.end(); ++i)
             out << i->first << "=" << i->second << "\n";
         out << "\n[bands]\n";

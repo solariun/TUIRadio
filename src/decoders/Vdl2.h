@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/Vdl2.h
-//  Layer:  Library liboffgrid-decoders (public header)
+//  Layer:  Library libtuiradio-decoders (public header)
 //
 //  What this file does
 //  -------------------
@@ -85,8 +85,8 @@
 //  to the largest block seen, then are reused); strict C++11.  Run
 //  tests/test_decoders_aviation.cpp after any change.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_VDL2_H
-#define OFFGRID_DECODERS_VDL2_H
+#ifndef TUIRADIO_DECODERS_VDL2_H
+#define TUIRADIO_DECODERS_VDL2_H
 
 #include "Acars.h"
 #include "Decoder.h"
@@ -172,7 +172,7 @@ public:
     void processIq(const std::complex<float>* iq, std::size_t n, double rate, double centerHz, double dialHz);
     // Each new frame as two lines (headLine, then the body indented):
     //   "VDL2 136.975 · 400ABC (UK) → 10A0FA (ground) · G-OFFG · OG0123 · label H1\n"
-    //   "  OFFGRID-SDR DEMO. VDL2 POSITION 5212N 00008E FL350\n"
+    //   "  TUIRADIO DEMO. VDL2 POSITION 5212N 00008E FL350\n"
     void takeText(std::string& out);
     Status status() const;
     double audioCenterHz() const { return 0; }

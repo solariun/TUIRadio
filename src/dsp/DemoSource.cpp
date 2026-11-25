@@ -1,6 +1,6 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - a terminal software-defined radio receiver, in C++11.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr).
+//  TUIRadio - a terminal software-defined radio receiver, in C++11.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/dsp/DemoSource.cpp
@@ -25,7 +25,7 @@
 //  Elsewhere: every 2 MHz, six stations 300 kHz apart: AM with music, USB
 //  and LSB "voices" (additive synthesis: harmonics of a gliding pitch shaped
 //  by vowel formants, built directly as a one-sided complex signal), a CW
-//  beacon keying "CQ CQ DE OFFGRID" in Morse, NFM with a 1 kHz tone, and AM
+//  beacon keying "CQ CQ DE TUIRADIO" in Morse, NFM with a 1 kHz tone, and AM
 //  with a 1 kHz tone (good for trying SAM).
 //
 //  How samples are made: each station computes its program at a low rate
@@ -243,7 +243,7 @@ struct VoiceEnvelope : Envelope {
     }
 };
 
-// Morse keyer: "CQ CQ DE OFFGRID" at 18 words per minute, raised-cosine
+// Morse keyer: "CQ CQ DE TUIRADIO" at 18 words per minute, raised-cosine
 // keying edges (5 ms) so the signal stays narrow.
 struct CwEnvelope : Envelope {
     std::vector<unsigned char> keys;  // one entry per dot length: 1 = carrier on
@@ -534,7 +534,7 @@ struct DemoSource::Impl {
         const int dLow = std::max(1, static_cast<int>(std::floor(fs / 64000.0 + 0.5)));
         const double rWfm = fs / dWfm, rLow = fs / dLow;
         if (isFmBand(center)) {
-            static const char* const kNames[6] = {"OFFGRID ", "DEMO FM ", "RADIO 1 ", "CLASSIC ", "JAZZ 24 ", "NEWS 24 "};
+            static const char* const kNames[6] = {"TUIRADIO", "DEMO FM ", "RADIO 1 ", "CLASSIC ", "JAZZ 24 ", "NEWS 24 "};
             static const char* const kText[6] = {
                 "OFFgrid-SDR demo station - left 1 kHz, right 1.5 kHz test tones",
                 "You are listening to the OFFgrid-SDR terminal receiver demo",
@@ -591,7 +591,7 @@ struct DemoSource::Impl {
                     switch (j) {
                         case 0: g = new EnvelopeStation(fs, off, amp, dLow, new AmEnvelope(new Melody(rLow, seed, 1.0f), 0.7f)); break;
                         case 1: g = new EnvelopeStation(fs, off, amp, dLow, new VoiceEnvelope(rLow, 120, false, seed)); break;
-                        case 2: g = new EnvelopeStation(fs, off, amp, dLow, new CwEnvelope(rLow, "CQ CQ DE OFFGRID ")); break;
+                        case 2: g = new EnvelopeStation(fs, off, amp, dLow, new CwEnvelope(rLow, "CQ CQ DE TUIRADIO ")); break;
                         case 3: g = new EnvelopeStation(fs, off, amp, dLow, new VoiceEnvelope(rLow, 170, true, seed)); break;
                         case 4: g = new FmStation(fs, off, amp, dLow, 3000.0, 0, new Tone(1000, rLow, 1.0f)); break;
                         default: g = new EnvelopeStation(fs, off, amp, dLow, new AmEnvelope(new Tone(1000, rLow, 1.0f), 0.5f)); break;

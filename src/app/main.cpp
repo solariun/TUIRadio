@@ -1,6 +1,6 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - a terminal software-defined radio receiver, in C++11.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr).
+//  TUIRadio - a terminal software-defined radio receiver, in C++11.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/app/main.cpp
@@ -76,7 +76,7 @@ struct PictureSaver {
         std::time_t now = std::time(0);
         char name[64];
         std::strftime(name, sizeof(name), "%Y%m%d-%H%M%S", std::localtime(&now));
-        std::string path = "offgrid-" + kind + "-" + name + "-" + std::to_string(id) + ".png", error;
+        std::string path = "tuiradio-" + kind + "-" + name + "-" + std::to_string(id) + ".png", error;
         if (gfx::savePng(path, img, error)) std::printf("picture saved: %s (%dx%d)\n", path.c_str(), width, static_cast<int>(rows.size()));
         else std::printf("picture not saved: %s\n", error.c_str());
         rows.clear();
@@ -206,21 +206,21 @@ int main(int argc, char** argv) {
         if (a == "--backup") {
             std::ifstream s1((dir + "/settings.ini").c_str()), s2((dir + "/clock.txt").c_str());
             std::ofstream out(argv[i + 1]);
-            out << "#offgrid-backup settings.ini\n" << s1.rdbuf() << "\n#offgrid-backup clock.txt\n" << s2.rdbuf();
+            out << "#tuiradio-backup settings.ini\n" << s1.rdbuf() << "\n#tuiradio-backup clock.txt\n" << s2.rdbuf();
             std::printf("%s %s\n", out ? "settings saved to" : "cannot write", argv[i + 1]);
             return out ? 0 : 1;
         }
         if (a == "--restore") {
             std::ifstream in(argv[i + 1]);
             if (!in) {
-                std::fprintf(stderr, "offgrid: cannot read %s\n", argv[i + 1]);
+                std::fprintf(stderr, "tuiradio: cannot read %s\n", argv[i + 1]);
                 return 1;
             }
             std::string line, file;
             std::ofstream out;
             mkdir(dir.c_str(), 0755);
             while (std::getline(in, line)) {
-                if (line.compare(0, 16, "#offgrid-backup ") == 0) {
+                if (line.compare(0, 16, "#tuiradio-backup ") == 0) {
                     if (out.is_open()) out.close();
                     out.open((dir + "/" + line.substr(16)).c_str());
                     continue;
@@ -236,7 +236,7 @@ int main(int argc, char** argv) {
     }
     error = app::parse(argc, argv, o);
     if (!error.empty()) {
-        std::fprintf(stderr, "offgrid: %s\n", error.c_str());
+        std::fprintf(stderr, "tuiradio: %s\n", error.c_str());
         return 2;
     }
     if (o.help) {
@@ -262,7 +262,7 @@ int main(int argc, char** argv) {
 
     app::Radio radio(std::move(source), std::move(out));
     if (!radio.start(o.radio, error)) {
-        std::fprintf(stderr, "offgrid: %s\n", error.c_str());
+        std::fprintf(stderr, "tuiradio: %s\n", error.c_str());
         return 1;
     }
     if (o.upconverter > 0) {
@@ -273,7 +273,7 @@ int main(int argc, char** argv) {
         radio.setLocator(o.locator);
         store.set("locator", o.locator);
     }
-    if (!o.wav.empty() && !radio.startRecording(o.wav, error)) std::fprintf(stderr, "offgrid: %s\n", error.c_str());
+    if (!o.wav.empty() && !radio.startRecording(o.wav, error)) std::fprintf(stderr, "tuiradio: %s\n", error.c_str());
     // Slot-based decoders follow the saved clock correction (clock.txt).
     {
         std::ifstream in((app::Store::directory() + "/clock.txt").c_str());

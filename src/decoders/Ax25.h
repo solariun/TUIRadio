@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/Ax25.h
-//  Layer:  Library liboffgrid-decoders (public header)
+//  Layer:  Library libtuiradio-decoders (public header)
 //
 //  What this file does
 //  -------------------
@@ -74,11 +74,11 @@
 //  Contributing
 //  ------------
 //  Keep the APRS parser in step with the JS one; keep the copied AX25Toolkit
-//  code close to its origin (changes marked "OFFgrid:" there); no allocation
+//  code close to its origin (changes marked "TUIRadio:" there); no allocation
 //  per sample; strict C++11.  Run tests/test_decoders_ax25.cpp.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_AX25_H
-#define OFFGRID_DECODERS_AX25_H
+#ifndef TUIRADIO_DECODERS_AX25_H
+#define TUIRADIO_DECODERS_AX25_H
 
 #include "Decoder.h"
 

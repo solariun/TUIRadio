@@ -1,4 +1,4 @@
-# liboffgrid-codecs — the audio decoders of digital radio, in C++11
+# libtuiradio-codecs — the audio decoders of digital radio, in C++11
 
 The sound of DAB, DAB+ and DRM: an AAC decoder (AAC-LC, HE-AAC with SBR, HE-AAC v2 with
 parametric stereo, 960- and 1024-sample frames, DRM's error-resilient AAC) and an MPEG Audio

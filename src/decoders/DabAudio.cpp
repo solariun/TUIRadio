@@ -1,15 +1,15 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/DabAudio.cpp
-//  Layer:  Library liboffgrid-decoders (internal)
+//  Layer:  Library libtuiradio-decoders (internal)
 //
 //  What this file does
 //  -------------------
 //  The DAB receiver's sound: dab::AudioCodecs (DabInternal.h) over
-//  liboffgrid-codecs' decoders, codec::Mp2Decoder (MPEG-1/2 Layer II
+//  libtuiradio-codecs' decoders, codec::Mp2Decoder (MPEG-1/2 Layer II
 //  frames, DAB) and codec::AacDecoder (HE-AAC v2 access units, DAB+: set
 //  up by explicit parameters, AacParams::dabPlus: 960-sample frames, the
 //  core at half the output rate with SBR, PS).  Both give interleaved
@@ -23,7 +23,7 @@
 //  WebAssembly (dabAac, dabMp2).  Dab.cpp only sees the small interface, so
 //  the receiver and its tests stand alone; this file is the one place that
 //  knows the codecs.  Build with src/codecs/*.cpp; to build the receiver
-//  without liboffgrid-codecs define OFFGRID_DAB_NO_CODECS (available() is
+//  without libtuiradio-codecs define TUIRADIO_DAB_NO_CODECS (available() is
 //  then false: everything up to the audio units is still decoded).
 //
 //  Contributing
@@ -33,7 +33,7 @@
 // ============================================================================
 #include "DabInternal.h"
 
-#ifndef OFFGRID_DAB_NO_CODECS
+#ifndef TUIRADIO_DAB_NO_CODECS
 #include "codecs/Aac.h"
 #include "codecs/Mp2.h"
 #endif
@@ -43,7 +43,7 @@ namespace dab {
 
 namespace {
 
-#ifdef OFFGRID_DAB_NO_CODECS
+#ifdef TUIRADIO_DAB_NO_CODECS
 
 class Codecs : public AudioCodecs {
 public:

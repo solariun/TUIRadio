@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/Dab.h
-//  Layer:  Library liboffgrid-decoders (public header)
+//  Layer:  Library libtuiradio-decoders (public header)
 //
 //  What this file does
 //  -------------------
@@ -23,7 +23,7 @@
 //      std::vector<dec::Decoder::EncodedImage> im; dab.takeImages(im);
 //
 //  Text lines (takeText): the ensemble when first heard ("DAB ensemble
-//  OFFgrid DAB (0FF6)"), the station list once complete, the station
+//  TUIRadio DAB (0FF6)"), the station list once complete, the station
 //  chosen, and each new dynamic label (DLS) as "<station>: <text>".
 //  Images (takeImages): the chosen station's SlideShow pictures ("slide
 //  F0D1 <name>") and the multiplex's station logos from its SPI service
@@ -82,9 +82,9 @@
 //      frames of 5 CIFs found by the fire code, Reed-Solomon (120,110),
 //      AU CRCs, HE-AAC v2 format);
 //    - PAD: dynamic label and MOT SlideShow; the SPI service's logos.
-//  The sound comes from liboffgrid-codecs (codec::Mp2Decoder,
+//  The sound comes from libtuiradio-codecs (codec::Mp2Decoder,
 //  codec::AacDecoder; DabAudio.cpp): build with src/codecs/*.cpp.  Built
-//  without them (OFFGRID_DAB_NO_CODECS) everything up to the audio units
+//  without them (TUIRADIO_DAB_NO_CODECS) everything up to the audio units
 //  is still decoded and counted (stats(), takeUnits()); takeAudio() then
 //  gives nothing.
 //
@@ -96,8 +96,8 @@
 //  --------------
 //  Implements dec::Decoder (Decoder.h): wantsIq() is true; call
 //  processIq() (process() with audio does nothing).  DabEncoders.h builds
-//  the demo multiplex (tests, the demo band).  Depends on liboffgrid-dsp's
-//  FFT (src/dsp/Fft.h) and, for sound, liboffgrid-codecs.
+//  the demo multiplex (tests, the demo band).  Depends on libtuiradio-dsp's
+//  FFT (src/dsp/Fft.h) and, for sound, libtuiradio-codecs.
 //
 //  Contributing
 //  ------------
@@ -105,8 +105,8 @@
 //  "Addition to the JS"; no allocation per sample; strict C++11.  Run
 //  tests/test_decoders_dab.cpp.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_DAB_H
-#define OFFGRID_DECODERS_DAB_H
+#ifndef TUIRADIO_DECODERS_DAB_H
+#define TUIRADIO_DECODERS_DAB_H
 
 #include <complex>
 #include <cstddef>
@@ -186,7 +186,7 @@ public:
     unsigned selectedService() const;    // SId, 0 if none yet
     std::string dynamicLabel() const;    // the chosen station's text now
     DabStats stats() const;
-    bool codecsAvailable() const;        // liboffgrid-codecs built in (sound)
+    bool codecsAvailable() const;        // libtuiradio-codecs built in (sound)
     // Keep each audio unit / MP2 frame for takeUnits() (off by default).
     void setKeepUnits(bool on);
     void takeUnits(std::vector<DabUnit>& units);

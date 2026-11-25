@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-dsp - reusable C++11 radio signal processing (part of OFFgrid-SDR
-//  TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-dsp - reusable C++11 radio signal processing (part of TUIRadio,
+//  https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/dsp/SpectrumTools.h
-//  Layer:  Library liboffgrid-dsp (public header)
+//  Layer:  Library libtuiradio-dsp (public header)
 //
 //  What this file does
 //  -------------------
@@ -39,8 +39,8 @@
 //  Strict C++11; no allocation per frame once the width is stable.  Ported
 //  from OFFgrid-SDR by diddy-boy.
 // ============================================================================
-#ifndef OFFGRID_DSP_SPECTRUMTOOLS_H
-#define OFFGRID_DSP_SPECTRUMTOOLS_H
+#ifndef TUIRADIO_DSP_SPECTRUMTOOLS_H
+#define TUIRADIO_DSP_SPECTRUMTOOLS_H
 
 #include <vector>
 

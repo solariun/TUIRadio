@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/TimeEncoders.h
-//  Layer:  Library liboffgrid-decoders (public header; test and demo signals)
+//  Layer:  Library libtuiradio-decoders (public header; test and demo signals)
 //
 //  What this file does
 //  -------------------
@@ -48,8 +48,8 @@
 //  ------------
 //  Keep the code layouts in step with TimeDecoder (Time.cpp).
 // ============================================================================
-#ifndef OFFGRID_DECODERS_TIMEENCODERS_H
-#define OFFGRID_DECODERS_TIMEENCODERS_H
+#ifndef TUIRADIO_DECODERS_TIMEENCODERS_H
+#define TUIRADIO_DECODERS_TIMEENCODERS_H
 
 #include "Time.h"
 

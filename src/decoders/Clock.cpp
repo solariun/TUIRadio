@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/Clock.cpp
-//  Layer:  Library liboffgrid-decoders
+//  Layer:  Library libtuiradio-decoders
 //
 //  What this file does
 //  -------------------
@@ -168,7 +168,7 @@ ClockAge ClockCorrection::age(double pcNow) const {
 }
 
 std::string ClockCorrection::save() const {
-    std::string s = "offgrid-clock 1\n";
+    std::string s = "tuiradio-clock 1\n";
     char buf[128];
     std::snprintf(buf, sizeof buf, "offset=%.6f\noffsetAt=%.3f\n", off_, offAt_); s += buf;
     if (driftKnown_) { std::snprintf(buf, sizeof buf, "drift=%.6f\n", drift_); s += buf; }
@@ -188,7 +188,7 @@ bool ClockCorrection::load(const std::string& text) {
     std::string line;
     if (!std::getline(in, line)) return false;
     if (!line.empty() && line[line.size() - 1] == '\r') line.erase(line.size() - 1);
-    if (line != "offgrid-clock 1") return false;
+    if (line != "tuiradio-clock 1") return false;
     ClockCorrection c;
     while (std::getline(in, line)) {
         if (!line.empty() && line[line.size() - 1] == '\r') line.erase(line.size() - 1);

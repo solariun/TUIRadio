@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-sdrconnect - an SDRplay RSP through SDRplay's SDRconnect WebSocket
-//  API, in C++11 (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-sdrconnect - an SDRplay RSP through SDRplay's SDRconnect WebSocket
+//  API, in C++11 (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/sdrconnect/SdrConnect.cpp
-//  Layer:  Library liboffgrid-sdrconnect
+//  Layer:  Library libtuiradio-sdrconnect
 //
 //  What this file does
 //  -------------------

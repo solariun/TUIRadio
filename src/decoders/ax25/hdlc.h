@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/ax25/hdlc.h
-//  Layer:  Library liboffgrid-decoders (internal header of the AX.25 decoder)
+//  Layer:  Library libtuiradio-decoders (internal header of the AX.25 decoder)
 //
 //  Where this file comes from
 //  --------------------------
@@ -23,7 +23,7 @@
 //    hdlc::Encoder  a frame in; flags, the frame and its FCS bit-stuffed,
 //                   NRZI-encoded bits out (1 = mark tone, 0 = space).
 //
-//  Changes from AX25Toolkit (marked "OFFgrid:" in hdlc.cpp):
+//  Changes from AX25Toolkit (marked "TUIRadio:" in hdlc.cpp):
 //    - namespace hdlc -> dec::hdlc;
 //    - Encoder::send_frame can leave the FCS to the caller (tests send
 //      frames with a wrong one);
@@ -43,8 +43,8 @@
 // HDLC framing for AX.25: bit stuffing, FCS/CRC16-CCITT, frame assembly
 // FCS algorithm derived from Dire Wolf by John Langner, WB2OSZ (GPLv2)
 // Simplified for kiss_modem: single-channel, C++ classes, no global state
-#ifndef OFFGRID_DECODERS_AX25_HDLC_H
-#define OFFGRID_DECODERS_AX25_HDLC_H
+#ifndef TUIRADIO_DECODERS_AX25_HDLC_H
+#define TUIRADIO_DECODERS_AX25_HDLC_H
 #include <cstdint>
 #include <cstddef>
 #include <functional>
@@ -114,7 +114,7 @@ public:
     // Encode a complete frame.  Calls on_bit for each output bit.
     // `preamble_flags` = number of 0x7E flags before data (typ. 25-40 for 300ms @ 1200 baud)
     // `postamble_flags` = trailing flags (typ. 2)
-    // OFFgrid: append_fcs false sends `data` as given (its last 2 bytes
+    // TUIRadio: append_fcs false sends `data` as given (its last 2 bytes
     // taken as the FCS, right or wrong: for tests).
     void send_frame(const uint8_t* data, size_t len, int preamble_flags = 30, int postamble_flags = 2,
                     bool append_fcs = true);

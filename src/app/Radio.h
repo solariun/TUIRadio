@@ -1,6 +1,6 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - a terminal software-defined radio receiver, in C++11.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr).
+//  TUIRadio - a terminal software-defined radio receiver, in C++11.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/app/Radio.h
@@ -21,8 +21,8 @@
 //  interface reads (spectrum, levels, RDS, status) is copied under a mutex
 //  into a Snapshot, so the UI thread never touches the DSP's state.
 // ============================================================================
-#ifndef OFFGRID_APP_RADIO_H
-#define OFFGRID_APP_RADIO_H
+#ifndef TUIRADIO_APP_RADIO_H
+#define TUIRADIO_APP_RADIO_H
 
 #include <atomic>
 #include <condition_variable>
@@ -120,7 +120,7 @@ public:
     // The clean-up filter fields of `f` (noiseBlanker ... limiter).
     void setFilters(const RadioSettings& f);
 
-    // Text / picture decoder on the demodulated sound (liboffgrid-decoders).
+    // Text / picture decoder on the demodulated sound (libtuiradio-decoders).
     // setup (optional) runs on the new decoder before its first sample, on the
     // DSP thread: decoder-specific settings (AX.25 speed, time station ...).
     void setDecoder(bool on, dec::Kind kind = dec::Kind::Cw, std::function<void(dec::Decoder&)> setup = std::function<void(dec::Decoder&)>());

@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/Hell.h
-//  Layer:  Library liboffgrid-decoders (public header)
+//  Layer:  Library libtuiradio-decoders (public header)
 //
 //  What this file does
 //  -------------------
@@ -54,8 +54,8 @@
 //  No allocation per sample (one small vector per column, 17.5 a second).
 //  Strict C++11.  Run tests/test_decoders_psk.cpp after any change.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_HELL_H
-#define OFFGRID_DECODERS_HELL_H
+#ifndef TUIRADIO_DECODERS_HELL_H
+#define TUIRADIO_DECODERS_HELL_H
 
 #include "Decoder.h"
 

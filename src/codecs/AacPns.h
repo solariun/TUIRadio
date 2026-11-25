@@ -1,13 +1,12 @@
 // ============================================================================
-//  offgrid-codecs - perceptual noise substitution (part of OFFgrid-SDR TUI,
-//  https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - perceptual noise substitution (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 //  Ported to C++11 from FAAD2 (GPL-2.0-or-later, commit a335040, as built by
 //  OFFgrid-SDR: see licenses/FAAD2). FAAD2's own notice, kept below, applies
 //  to the code taken from it; "Code from FAAD2 is copyright (c) Nero AG".
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/AacPns.h
-//  Layer:  Library liboffgrid-codecs (internal: the FAAD2 port)
+//  Layer:  Library libtuiradio-codecs (internal: the FAAD2 port)
 //
 //  What this file does
 //  -------------------
@@ -58,8 +57,8 @@
 ** $Id: pns.h,v 1.27 2007/11/01 12:33:33 menno Exp $
 **/
 
-#ifndef OFFGRID_CODECS_AACPNS_H
-#define OFFGRID_CODECS_AACPNS_H
+#ifndef TUIRADIO_CODECS_AACPNS_H
+#define TUIRADIO_CODECS_AACPNS_H
 
 #include "AacCommon.h"
 #include "AacSyntax.h"
@@ -84,4 +83,4 @@ static inline uint8_t is_noise(ic_stream *ics, uint8_t group, uint8_t sfb)
 } // namespace faad
 } // namespace codec
 
-#endif // OFFGRID_CODECS_AACPNS_H
+#endif // TUIRADIO_CODECS_AACPNS_H

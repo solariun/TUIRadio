@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-dsp - reusable C++11 radio signal processing (part of OFFgrid-SDR
-//  TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-dsp - reusable C++11 radio signal processing (part of TUIRadio,
+//  https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   tests/test_analysis.cpp
-//  Layer:  Tests (library liboffgrid-dsp)
+//  Layer:  Tests (library libtuiradio-dsp)
 //
 //  What this file does
 //  -------------------

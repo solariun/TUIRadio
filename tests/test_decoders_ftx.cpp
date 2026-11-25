@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   tests/test_decoders_ftx.cpp
-//  Layer:  Tests (library liboffgrid-decoders)
+//  Layer:  Tests (library libtuiradio-decoders)
 //
 //  What this file does
 //  -------------------
@@ -119,7 +119,7 @@ void testMessages() {
         {"3XY1AB K1ABC -05", "3XY1AB K1ABC -05", ftx::MessageType::Standard},
         {"<PJ4/K1ABC> W9XYZ -11", "<PJ4/K1ABC> W9XYZ -11", ftx::MessageType::Standard},
         {"TNX BOB 73 GL", "TNX BOB 73 GL", ftx::MessageType::FreeText},
-        {"OFFGRID SDR", "OFFGRID SDR", ftx::MessageType::FreeText},
+        {"TUIRADIO SDR", "TUIRADIO SDR", ftx::MessageType::FreeText},
         {"73 GL ?/+-.", "73 GL ?/+-.", ftx::MessageType::FreeText},
         {"telemetry 0123456789ABCDEF01", "telemetry 0123456789ABCDEF01", ftx::MessageType::Telemetry},
         {"TELEMETRY 7FF", "telemetry 0000000000000007FF", ftx::MessageType::Telemetry},
@@ -400,7 +400,7 @@ std::vector<Sig> ft8Signals() {
         {"CQ G4OGR IO81", 640, 0.0, -8, 0},
         {"EA4XYZ G4OGR -12", 1240, 0.4, -14, 0},
         {"CQ DX K1OGS FN42", 1890, -0.2, -18, 0},
-        {"OFFGRID SDR", 2650, 0.8, -16, 0},
+        {"TUIRADIO SDR", 2650, 0.8, -16, 0},
         {"CQ W9XYZ EN37", 2950, -0.6, -12, 0},
         // slot 1: replies; a strong station with a weak one 12 Hz above it (the deeper decoding's job)
         {"G4OGR EA4XYZ R-09", 1240, 0.1, -12, 1},

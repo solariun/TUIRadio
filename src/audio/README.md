@@ -1,4 +1,4 @@
-# liboffgrid-audio — sound output in C++11, without sound libraries
+# libtuiradio-audio — sound output in C++11, without sound libraries
 
 Plays interleaved stereo float samples, never blocking the caller: `write()`
 queues into a ring buffer, a playback thread (or the OS callback) takes from it,
@@ -24,5 +24,5 @@ double delay = out->queuedSeconds(); // keep it bounded (drop when > 0.25 s)
 unsigned gaps = out->underruns();    // real dropouts (not counted before the start)
 ```
 
-`make libs` builds `build/lib/liboffgrid-audio.a`; link with `-framework
+`make libs` builds `build/lib/libtuiradio-audio.a`; link with `-framework
 AudioToolbox` on macOS, `-pthread` on Linux.

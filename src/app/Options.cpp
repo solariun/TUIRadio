@@ -1,6 +1,6 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - a terminal software-defined radio receiver, in C++11.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr).
+//  TUIRadio - a terminal software-defined radio receiver, in C++11.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/app/Options.cpp
@@ -35,7 +35,7 @@ Options::Options()
       fresh(false),
       upconverter(0) {}
 
-const char* versionString() { return "offgrid 0.5.0 (C++11 terminal port of OFFgrid-SDR 2.5)"; }
+const char* versionString() { return "tuiradio 0.5.0 (C++11 terminal radio, based on OFFgrid-SDR 2.5)"; }
 
 std::string parse(int argc, char** argv, Options& o) {
     bool freqGiven = false;
@@ -155,7 +155,7 @@ std::string usage() {
            "librtlsdr), rtl_tcp servers, IQ recordings and a demo band; spectrum, waterfall,\n"
            "WFM stereo with RDS, NFM, AM, SAM, USB, LSB and CW.\n"
            "\n"
-           "Usage: offgrid [options]\n"
+           "Usage: tuiradio [options]\n"
            "\n"
            "Source (default: the first RTL-SDR stick)\n"
            "  --list                  list the RTL-SDR sticks and exit\n"
@@ -197,7 +197,7 @@ std::string usage() {
            "  --decoder NAME          start a decoder (d in the interface): cw, rtty, psk, navtex,\n"
            "                          dsc, hell, fax, sstv, time, ax25, acars, vdl2, ais, ft8, ft4,\n"
            "                          wspr, dab, drm; with --headless the text is printed\n"
-           "  --fresh                 ignore the saved settings (~/.config/offgrid/settings.ini)\n"
+           "  --fresh                 ignore the saved settings (~/.config/tuiradio/settings.ini)\n"
            "  --upconverter FREQ      an HF upconverter's oscillator (e.g. 125M): below 65 MHz the\n"
            "                          stick is tuned at frequency + FREQ (kept)\n"
            "  --backup FILE           copy the settings (memories, labels, clock...) to FILE and exit\n"

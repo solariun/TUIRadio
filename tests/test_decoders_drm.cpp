@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   tests/test_decoders_drm.cpp
-//  Layer:  Tests (Library liboffgrid-decoders)
+//  Layer:  Tests (Library libtuiradio-decoders)
 //
 //  What this file does
 //  -------------------
@@ -13,16 +13,16 @@
 //    - the coding pieces: CRCs, interleaver permutations, the mother code
 //      through the Viterbi decoder (clean and noisy), raw inflate, the text
 //      message, MOT, Journaline;
-//    - the demo's "OFFgrid DRM" (mode B, 10 kHz, 64-QAM, AAC + text +
+//    - the demo's "TUIRadio" (mode B, 10 kHz, 64-QAM, AAC + text +
 //      SlideShow + Journaline) in noise (SNR 25 dB in the signal's band) and
 //      237 Hz off: FAC/SDC fields, label, service ID, language, codec, the
 //      text message, the PNG byte for byte, the Journaline pages, every AAC
 //      access unit byte for byte with its DRM CRC byte (the CRC covers the
 //      AAC core's bits, so the AAC decoder checks it), then the sound through
-//      liboffgrid-codecs: every frame good, 960 samples each, level, mono;
+//      libtuiradio-codecs: every frame good, 960 samples each, level, mono;
 //    - the same through a two-path channel (an echo of 0.5 at 1 ms), at 480
 //      kS/s with the station 37 kHz from the stick's centre, and mirrored;
-//    - the demo's "OFFgrid xHE": xHE-AAC reported as unsupported ("xHE-AAC:
+//    - the demo's "TUIRadio X": xHE-AAC reported as unsupported ("xHE-AAC:
 //      not supported yet") in the status and the services, its frames
 //      recovered byte for byte, its text and picture decoded;
 //    - other robustness modes and occupancies (A 10 kHz 16-QAM long
@@ -36,7 +36,7 @@
 //  Build (from the repository root; add src/codecs/*.cpp once present):
 //    c++ -std=c++11 -O2 -Wall -Wextra -pedantic-errors -Isrc \
 //        src/dsp/Fft.cpp src/decoders/Drm*.cpp tests/test_decoders_drm.cpp \
-//        build/lib/liboffgrid-codecs.a -o test_decoders_drm
+//        build/lib/libtuiradio-codecs.a -o test_decoders_drm
 //    (or src/codecs/*.cpp in place of the library)
 //
 //  Contributing
@@ -397,7 +397,7 @@ void testDemoAac() {
     c.offsetHz = 237;
     const Run r = receive(loop, c, 10);
     const dec::DrmInfo& i = r.info;
-    check(i.label == "OFFgrid DRM", "AAC demo: label", i.label);
+    check(i.label == "TUIRadio", "AAC demo: label", i.label);
     check(i.mode == 'B' && i.occupancy == 3 && i.occupancyKhz == 10, "FAC: mode B, 10 kHz", std::string(1, i.mode ? i.mode : '?'));
     check(i.msc == "64-QAM" && !i.longInterleave && i.sdc == "4-QAM", "FAC: 64-QAM, short interleaving, 4-QAM SDC", i.msc + " / " + i.sdc);
     check(i.serviceId == 0xf06001 && i.language == "English", "FAC: service ID F06001, English", hex(i.serviceId) + " " + i.language);
@@ -406,9 +406,9 @@ void testDemoAac() {
     check(std::fabs(i.freqOffsetHz - 237) < 3, "frequency offset found", str("%.1f Hz", i.freqOffsetHz));
     check(i.facOk > 0 && i.sdcOk > 0, "FAC and SDC CRCs pass", str2("FAC %.0f, SDC %.0f", i.facOk, i.sdcOk));
     check(i.text == "OFFgrid-SDR demo: DRM digital radio with station text and a SlideShow picture", "text message", i.text);
-    check(r.text.find("OFFgrid DRM: OFFgrid-SDR demo") != std::string::npos, "takeText gives the text message", r.text);
+    check(r.text.find("TUIRadio: OFFgrid-SDR demo") != std::string::npos, "takeText gives the text message", r.text);
     const std::vector<unsigned char> png = dec::drmDemoSlidePng();
-    check(r.images.size() >= 1 && r.images[0].bytes == png && r.images[0].mime == "image/png" && r.images[0].name == "OFFgrid-SDR.png",
+    check(r.images.size() >= 1 && r.images[0].bytes == png && r.images[0].mime == "image/png" && r.images[0].name == "TUIRadio.png",
           "SlideShow: the PNG byte for byte", r.images.empty() ? "none" : r.images[0].name + str(" %.0f bytes", r.images[0].bytes.size()));
     bool jlOk = r.pages.size() == 4;
     std::string jlInfo;
@@ -416,20 +416,20 @@ void testDemoAac() {
     if (jlOk) {
         jlOk = r.pages[0].type == "menu" && r.pages[0].links.size() == 3 && r.pages[0].links[1].first == 0x0102 && r.pages[1].type == "text" &&
                r.pages[1].text.find("*News*") != std::string::npos && r.pages[2].type == "list" && r.pages[2].rows.size() == 3 &&
-               r.pages[2].rows[1][1] == "OFFgrid DRM (AAC)";
+               r.pages[2].rows[1][1] == "TUIRadio DRM (AAC)";
     }
     check(jlOk, "Journaline: 4 pages (menu, text, list, text)", jlInfo);
     int bad = 0;
     const int ok = checkAacAus(r.aus, rep, bad);
     check(ok >= 200 && bad == 0, "AAC access units byte for byte, with their DRM CRC bytes", str2("%.0f good, %.0f bad", ok, bad));
-    check(r.services.size() == 1 && r.services[0].label == "OFFgrid DRM" && r.services[0].audio && r.services[0].selected,
+    check(r.services.size() == 1 && r.services[0].label == "TUIRadio" && r.services[0].audio && r.services[0].selected,
           "services(): one audio service", r.services.empty() ? "" : r.services[0].label + " / " + r.services[0].detail);
-    check(r.status.locked && r.status.station == "OFFgrid DRM" && r.status.info.find("OFFgrid DRM") == 0, "status()", r.status.mode + " | " + r.status.info);
+    check(r.status.locked && r.status.station == "TUIRadio" && r.status.info.find("TUIRadio") == 0, "status()", r.status.mode + " | " + r.status.info);
     {
         // the sound: 24 kHz mono AAC, 960 samples a frame, out as stereo pairs;
         // every AU after the first gives a frame (the codec's start-up delay)
         const std::size_t frames = r.pcmFrames, expect = static_cast<std::size_t>(i.audioGood > 0 ? i.audioGood - 1 : 0) * 960;
-        check(r.hasAudio && r.rate == 24000 && i.audioGood >= 600 && i.audioBad == 0, "AAC decoded (liboffgrid-codecs): every frame good",
+        check(r.hasAudio && r.rate == 24000 && i.audioGood >= 600 && i.audioBad == 0, "AAC decoded (libtuiradio-codecs): every frame good",
               str2("%.0f good, %.0f bad", i.audioGood, i.audioBad) + str(", %.0f Hz", r.rate));
         check(frames == expect, "PCM: 960 stereo frames per AU", str2("%.0f frames, expected %.0f", frames, expect));
         check(r.rms > 0.01 && r.peak > 0.1 && r.peak < 1.5 && r.silentShare < 0.5, "PCM has sound (not silence, not overload)",
@@ -447,7 +447,7 @@ void testDemoAac() {
         const Run e = receive(loop, m, 10);
         int b2 = 0;
         const int g2 = checkAacAus(e.aus, rep, b2);
-        check(e.info.label == "OFFgrid DRM" && g2 >= 200 && b2 <= g2 / 50 && e.images.size() >= 1, "two-path channel (echo 0.5 at 1 ms)",
+        check(e.info.label == "TUIRadio" && g2 >= 200 && b2 <= g2 / 50 && e.images.size() >= 1, "two-path channel (echo 0.5 at 1 ms)",
               str2("%.0f AUs good, %.0f bad", g2, b2));
     }
     // the front end: 480 kS/s, the station 37 kHz from the stick's centre
@@ -460,7 +460,7 @@ void testDemoAac() {
         const Run e = receive(loop, m, 10);
         int b2 = 0;
         const int g2 = checkAacAus(e.aus, rep, b2);
-        check(e.info.label == "OFFgrid DRM" && g2 >= 100 && b2 == 0, "480 kS/s, station 37 kHz off the stick's centre",
+        check(e.info.label == "TUIRadio" && g2 >= 100 && b2 == 0, "480 kS/s, station 37 kHz off the stick's centre",
               str2("%.0f AUs good, %.0f bad", g2, b2));
     }
     // mirrored (LSB tuning, IQ swapped)
@@ -472,7 +472,7 @@ void testDemoAac() {
         const Run e = receive(loop, m, 10);
         int b2 = 0;
         const int g2 = checkAacAus(e.aus, rep, b2);
-        check(e.info.label == "OFFgrid DRM" && e.info.mirrored && g2 > 50 && b2 == 0, "mirrored spectrum read", str2("%.0f AUs good, %.0f bad", g2, b2));
+        check(e.info.label == "TUIRadio" && e.info.mirrored && g2 > 50 && b2 == 0, "mirrored spectrum read", str2("%.0f AUs good, %.0f bad", g2, b2) + " label=" + e.info.label + (e.info.mirrored ? " mirrored" : " not mirrored"));
     }
     // how weak: the share of AUs at lower SNRs
     for (int snr = 20; snr >= 14; snr -= 3) {
@@ -485,7 +485,7 @@ void testDemoAac() {
         const int g2 = checkAacAus(e.aus, rep, b2);
         std::printf("INFO  SNR %d dB: label \"%s\", %d AUs good, %d bad, MER %.1f dB; codec: %lld frames decoded, %lld refused (CRC/damage)\n", snr,
                     e.info.label.c_str(), g2, b2, e.info.merDb, e.info.audioGood, e.info.audioBad);
-        if (snr == 20) check(e.info.label == "OFFgrid DRM" && g2 > 50 && b2 <= g2 / 20, "SNR 20 dB: name and sound", str2("%.0f good, %.0f bad", g2, b2));
+        if (snr == 20) check(e.info.label == "TUIRadio" && g2 > 50 && b2 <= g2 / 20, "SNR 20 dB: name and sound", str2("%.0f good, %.0f bad", g2, b2));
     }
 }
 
@@ -503,7 +503,7 @@ void testDemoXhe() {
     c.seed = 5;
     const Run r = receive(loop, c, 10);
     const dec::DrmInfo& i = r.info;
-    check(i.label == "OFFgrid xHE" && i.serviceId == 0xf06002, "xHE demo: label, service ID", i.label);
+    check(i.label == "TUIRadio X" && i.serviceId == 0xf06002, "xHE demo: label, service ID", i.label);
     check(i.codec == 3 && i.codecName == "xHE-AAC" && i.rateCode == 4, "SDC: xHE-AAC, 24 kHz", i.audioText);
     check(i.unsupported == "xHE-AAC: not supported yet", "reported as not supported", i.unsupported);
     check(r.status.info.find("xHE-AAC: not supported yet") != std::string::npos, "... in status()", r.status.info);
@@ -673,7 +673,7 @@ void testCpu() {
     feed(d, x, rate, 11.5e6, 11.7e6);
     const double s = static_cast<double>(std::clock() - t0) / CLOCKS_PER_SEC;
     const dec::DrmInfo i = d.info();
-    check(i.label == "OFFgrid DRM", "2.048 MS/s, station 200 kHz off centre: decoded", i.label + str(", %.0f AUs", i.accessUnits));
+    check(i.label == "TUIRadio", "2.048 MS/s, station 200 kHz off centre: decoded", i.label + str(", %.0f AUs", i.accessUnits));
     std::printf("CPU   DRM at 2.048 MS/s: %.2f s for %.0f s of signal = %.1f%% of a core\n", s, c.seconds, 100 * s / c.seconds);
 }
 

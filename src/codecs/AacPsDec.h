@@ -1,13 +1,12 @@
 // ============================================================================
-//  offgrid-codecs - parametric stereo (HE-AAC v2) (part of OFFgrid-SDR TUI,
-//  https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - parametric stereo (HE-AAC v2) (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 //  Ported to C++11 from FAAD2 (GPL-2.0-or-later, commit a335040, as built by
 //  OFFgrid-SDR: see licenses/FAAD2). FAAD2's own notice, kept below, applies
 //  to the code taken from it; "Code from FAAD2 is copyright (c) Nero AG".
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/AacPsDec.h
-//  Layer:  Library liboffgrid-codecs (internal: the FAAD2 port)
+//  Layer:  Library libtuiradio-codecs (internal: the FAAD2 port)
 //
 //  What this file does
 //  -------------------
@@ -58,8 +57,8 @@
 ** $Id: ps_dec.h,v 1.13 2009/01/26 22:32:31 menno Exp $
 **/
 
-#ifndef OFFGRID_CODECS_AACPSDEC_H
-#define OFFGRID_CODECS_AACPSDEC_H
+#ifndef TUIRADIO_CODECS_AACPSDEC_H
+#define TUIRADIO_CODECS_AACPSDEC_H
 
 #include "AacCommon.h"
 #include "AacBits.h"
@@ -180,4 +179,4 @@ uint8_t ps_decode(ps_info *ps, qmf_t X_left[38][64], qmf_t X_right[38][64]);
 } // namespace faad
 } // namespace codec
 
-#endif // OFFGRID_CODECS_AACPSDEC_H
+#endif // TUIRADIO_CODECS_AACPSDEC_H

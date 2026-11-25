@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/PskEncoders.h
-//  Layer:  Library liboffgrid-decoders (public header)
+//  Layer:  Library libtuiradio-decoders (public header)
 //
 //  What this file does
 //  -------------------
@@ -12,8 +12,8 @@
 //  the demo band and the tests (the counterpart of Psk.h and Hell.h):
 //
 //      std::vector<float> a;
-//      dec::synthPsk("CQ CQ de OFFGRID\n", 31.25, 48000, a);   // appends
-//      dec::synthHell("OFFGRID HELL 73", 48000, a);
+//      dec::synthPsk("CQ CQ de TUIRADIO\n", 31.25, 48000, a);   // appends
+//      dec::synthHell("TUIRADIO HELL 73", 48000, a);
 //
 //  The output is the audio a USB receiver would produce: a tone (1000 Hz by
 //  default) at the given amplitude, no noise.  Same input, same samples.
@@ -42,8 +42,8 @@
 //  Keep the output deterministic (no random numbers, no clocks): the tests
 //  compare decoded text exactly.  Strict C++11.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_PSKENCODERS_H
-#define OFFGRID_DECODERS_PSKENCODERS_H
+#ifndef TUIRADIO_DECODERS_PSKENCODERS_H
+#define TUIRADIO_DECODERS_PSKENCODERS_H
 
 #include <cstddef>
 #include <string>

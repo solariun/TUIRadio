@@ -1,12 +1,12 @@
 // ============================================================================
-//  offgrid-dsp - liboffgrid-dsp, the signal processing library of OFFgrid-SDR TUI.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr) by diddy-boy.
+//  tuiradio-dsp - libtuiradio-dsp, the signal processing library of TUIRadio.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later AND BSD-3-Clause
 //  (dsp::rnnoise is a C++11 port of RNNoise; RNNoise's BSD notice is kept in
 //   VoiceCleaner.cpp and RnnoiseModel.cpp)
 // ----------------------------------------------------------------------------
 //  File:   src/dsp/VoiceCleaner.h
-//  Layer:  Library liboffgrid-dsp
+//  Layer:  Library libtuiradio-dsp
 //
 //  What this file does
 //  -------------------
@@ -52,8 +52,8 @@
 //  such call is written with an explicit static_cast<double>.  No allocation
 //  per frame: all state is fixed arrays; VoiceCleaner's queues only grow.
 // ============================================================================
-#ifndef OFFGRID_DSP_VOICECLEANER_H
-#define OFFGRID_DSP_VOICECLEANER_H
+#ifndef TUIRADIO_DSP_VOICECLEANER_H
+#define TUIRADIO_DSP_VOICECLEANER_H
 
 #include <cstddef>
 #include <memory>

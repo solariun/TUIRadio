@@ -1,13 +1,12 @@
 // ============================================================================
-//  offgrid-codecs - parametric stereo tables (part of OFFgrid-SDR TUI,
-//  https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - parametric stereo tables (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 //  Ported to C++11 from FAAD2 (GPL-2.0-or-later, commit a335040, as built by
 //  OFFgrid-SDR: see licenses/FAAD2). FAAD2's own notice, kept below, applies
 //  to the code taken from it; "Code from FAAD2 is copyright (c) Nero AG".
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/AacPsTab.h
-//  Layer:  Library liboffgrid-codecs (internal: the FAAD2 port)
+//  Layer:  Library libtuiradio-codecs (internal: the FAAD2 port)
 //
 //  What this file does
 //  -------------------
@@ -57,8 +56,8 @@
 ** $Id: ps_tables.h,v 1.8 2007/11/01 12:33:33 menno Exp $
 **/
 
-#ifndef OFFGRID_CODECS_AACPSTAB_H
-#define OFFGRID_CODECS_AACPSTAB_H
+#ifndef TUIRADIO_CODECS_AACPSTAB_H
+#define TUIRADIO_CODECS_AACPSTAB_H
 
 #include "AacCommon.h"
 
@@ -521,4 +520,4 @@ static const real_t sf_iid_fine[] = {
 } // namespace faad
 } // namespace codec
 
-#endif // OFFGRID_CODECS_AACPSTAB_H
+#endif // TUIRADIO_CODECS_AACPSTAB_H

@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-sdrconnect - an SDRplay RSP through SDRplay's SDRconnect WebSocket
-//  API, in C++11 (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-sdrconnect - an SDRplay RSP through SDRplay's SDRconnect WebSocket
+//  API, in C++11 (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/sdrconnect/WebSocket.h
-//  Layer:  Library liboffgrid-sdrconnect
+//  Layer:  Library libtuiradio-sdrconnect
 //
 //  What this file does
 //  -------------------
@@ -37,8 +37,8 @@
 //  in SdrConnect.cpp, not here.  The RFC examples in tests/test_sdrconnect.cpp
 //  must keep passing.
 // ============================================================================
-#ifndef OFFGRID_SDRCONNECT_WEBSOCKET_H
-#define OFFGRID_SDRCONNECT_WEBSOCKET_H
+#ifndef TUIRADIO_SDRCONNECT_WEBSOCKET_H
+#define TUIRADIO_SDRCONNECT_WEBSOCKET_H
 
 #include <atomic>
 #include <cstddef>

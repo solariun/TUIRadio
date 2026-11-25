@@ -1,10 +1,9 @@
 // ============================================================================
-//  offgrid-codecs - AAC decoder for DAB+ and DRM (part of OFFgrid-SDR TUI,
-//  https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - AAC decoder for DAB+ and DRM (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/Aac.h
-//  Layer:  Library liboffgrid-codecs (public header)
+//  Layer:  Library libtuiradio-codecs (public header)
 //
 //  What this file does
 //  -------------------
@@ -72,8 +71,8 @@
 //  only to fix a bug, and say so in a comment marked "OFFgrid-SDR".  Strict
 //  C++11, no warnings with -Wall -Wextra -pedantic-errors.
 // ============================================================================
-#ifndef OFFGRID_CODECS_AAC_H
-#define OFFGRID_CODECS_AAC_H
+#ifndef TUIRADIO_CODECS_AAC_H
+#define TUIRADIO_CODECS_AAC_H
 
 #include <cstddef>
 #include <cstdint>
@@ -166,4 +165,4 @@ private:
 
 } // namespace codec
 
-#endif // OFFGRID_CODECS_AAC_H
+#endif // TUIRADIO_CODECS_AAC_H

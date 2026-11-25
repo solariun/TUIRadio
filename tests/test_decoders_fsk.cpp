@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   tests/test_decoders_fsk.cpp
-//  Layer:  Tests (library liboffgrid-decoders)
+//  Layer:  Tests (library libtuiradio-decoders)
 //
 //  What this file does
 //  -------------------
@@ -99,7 +99,7 @@ const double kAmp = 0.3;
 
 // ---- CW ----
 void testCw(double rate, double wpm) {
-    const std::string msg = "CQ CQ DE OFFGRID-SDR DESIGNED BY DIDDY 73";
+    const std::string msg = "CQ CQ DE TUIRADIO DESIGNED BY DIDDY 73";
     // (sent twice in one transmission: the first letters of a transmission go to learning the
     //  speed, and after a pause of over a second the first element can be cut short while the
     //  levels re-adapt, as in the browser: "missing the first letter or so is the better trade")
@@ -127,7 +127,7 @@ void testCw(double rate, double wpm) {
 // ---- RTTY ----
 void testRtty(double rate, double baud, double shift, bool reverse) {
     const std::string line = "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG 0123456789";
-    std::string text = "RYRYRY CQ CQ CQ DE OFFGRID-SDR K\n";
+    std::string text = "RYRYRY CQ CQ CQ DE TUIRADIO K\n";
     for (int i = 0; i < 4; ++i) text += line + "\n";
     std::vector<float> a = enc::rttyAudio(text, baud, shift, 1500, rate, reverse, kAmp);
     noisy(a, kAmp, rate, 22);
@@ -174,7 +174,7 @@ std::vector<float> bandNoise(std::size_t n, double rms, double rate, unsigned se
 }
 
 void testRttyOvers(double rate, double baud, double shift) {
-    const std::string over = "CQ CQ CQ DE OFFGRID OFFGRID PSE K";
+    const std::string over = "CQ CQ CQ DE TUIRADIO TUIRADIO PSE K";
     std::vector<float> a;
     const int kOvers = 5;
     for (int k = 0; k < kOvers; ++k) {
@@ -206,7 +206,7 @@ void testRttyOvers(double rate, double baud, double shift) {
 
 // ---- NAVTEX ----
 void testNavtex(double rate) {
-    const std::string body = "051200 UTC OCT 26\nOFFGRID-SDR NAVTEX TEST\nGALE WARNING: DOVER, WIGHT: SW 7 TO SEVERE GALE 9, VEERING NW LATER.";
+    const std::string body = "051200 UTC OCT 26\nTUIRADIO NAVTEX TEST\nGALE WARNING: DOVER, WIGHT: SW 7 TO SEVERE GALE 9, VEERING NW LATER.";
     const std::string msg = "ZCZC SA23\n" + body + "\nNNNN\n";
     std::vector<float> a = enc::silence(0.5, rate);
     enc::append(a, enc::navtexAudio(msg, rate, 1500, kAmp, 144));

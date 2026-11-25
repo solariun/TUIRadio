@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/AviationEncoders.cpp
-//  Layer:  Library liboffgrid-decoders
+//  Layer:  Library libtuiradio-decoders
 //
 //  What this file does
 //  -------------------
@@ -124,7 +124,7 @@ std::vector<AcarsDemoItem> acarsDemoMessages() {
     v[0].msg.bid = "3";
     v[0].msg.msgno = "M01A";
     v[0].msg.flight = "OG0123";
-    v[0].msg.text = "OFFGRID-SDR DEMO. CRUISE FL350, FUEL 12.4T, ETA 1435Z";
+    v[0].msg.text = "TUIRADIO DEMO. CRUISE FL350, FUEL 12.4T, ETA 1435Z";
     v[1].at = 4.0;
     v[1].msg.reg = "G-OFFG";
     v[1].msg.ack = "3";
@@ -139,7 +139,7 @@ std::vector<AcarsDemoItem> acarsDemoMessages() {
     v[3].msg.reg = "";
     v[3].msg.label = "SQ";
     v[3].msg.bid = " ";
-    v[3].msg.text = "02XAOFFGRID DEMO GROUND STATION";
+    v[3].msg.text = "02XATUIRADIO DEMO GROUND STATION";
     return v;
 }
 
@@ -363,7 +363,7 @@ std::vector<Vdl2DemoBurst> vdl2DemoBursts() {
     v[0].at = 2.0;
     v[0].freqHz = 136.975e6;
     v[0].frames.push_back(Ac::make(GS, 0x400ABC, "G-OFFG", "OG0123", "H1", "1", "M01A",
-                                   "OFFGRID-SDR DEMO. VDL2 POSITION 5212N 00008E FL350"));
+                                   "TUIRADIO DEMO. VDL2 POSITION 5212N 00008E FL350"));
     v[1].at = 3.2;
     v[1].freqHz = 136.975e6;
     v[1].frames.push_back(vdl2Frame(vdl2Address(0x400ABC, 1), vdl2Address(GS, 4, 0, true), 0x01, Bytes()));

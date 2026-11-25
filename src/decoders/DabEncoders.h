@@ -1,20 +1,20 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/DabEncoders.h
-//  Layer:  Library liboffgrid-decoders (public header)
+//  Layer:  Library libtuiradio-decoders (public header)
 //
 //  What this file does
 //  -------------------
 //  The demo DAB multiplex, as OFFgrid-SDR's browser version puts it in its
 //  demo band (on 12A, 223.936 MHz): a mode I OFDM signal at 2.048 MS/s,
-//  "OFFgrid DAB" (ensemble ID 0FF6) with
-//    - "OFFgrid Plus" (SId F0D1): the demo jingle in DAB+ (AAC), sub-channel
+//  "TUIRadio DAB" (ensemble ID 0FF6) with
+//    - "TUIRadio Plus" (SId F0D1): the demo jingle in DAB+ (AAC), sub-channel
 //      1, 48 kbit/s EEP 3-A, with station text (DLS) and a SlideShow in its
 //      PAD; programme type Pop Music;
-//    - "OFFgrid Classic" (SId F0D2): the jingle in the original DAB (MPEG
+//    - "TUIRadio Classic" (SId F0D2): the jingle in the original DAB (MPEG
 //      Layer II, 48 kbit/s), sub-channel 2, UEP index 7 (level 3); Other
 //      Music;
 //    - an SPI data service (E1F0D9FF, application 7): the two stations'
@@ -41,15 +41,15 @@
 //  interleaving once (in the constructor, about 15 ms), then each 96 ms
 //  frame built on demand by inverse FFT (1 s of signal in about 20 ms).
 //  Uses the receiver's own tables (DabInternal.h), so the two can't
-//  drift apart.  Needs liboffgrid-dsp's FFT.
+//  drift apart.  Needs libtuiradio-dsp's FFT.
 //
 //  Contributing
 //  ------------
 //  Keep it in step with dabDemoSignal, so the TUI's demo matches the
 //  browser's.  Run tests/test_decoders_dab.cpp.
 // ============================================================================
-#ifndef OFFGRID_DECODERS_DAB_ENCODERS_H
-#define OFFGRID_DECODERS_DAB_ENCODERS_H
+#ifndef TUIRADIO_DECODERS_DAB_ENCODERS_H
+#define TUIRADIO_DECODERS_DAB_ENCODERS_H
 
 #include <complex>
 #include <cstddef>

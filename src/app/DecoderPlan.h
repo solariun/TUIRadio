@@ -1,6 +1,6 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - a terminal software-defined radio receiver, in C++11.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr).
+//  TUIRadio - a terminal software-defined radio receiver, in C++11.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/app/DecoderPlan.h
@@ -30,8 +30,8 @@
 //    DRM               AM, the dial on the DRM centre; sound from the decoder
 //  The interface (Ui) and the headless mode (main) both use it.
 // ============================================================================
-#ifndef OFFGRID_APP_DECODERPLAN_H
-#define OFFGRID_APP_DECODERPLAN_H
+#ifndef TUIRADIO_APP_DECODERPLAN_H
+#define TUIRADIO_APP_DECODERPLAN_H
 
 #include <functional>
 

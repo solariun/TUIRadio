@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/ax25/hdlc.cpp
-//  Layer:  Library liboffgrid-decoders (internal to the AX.25 decoder)
+//  Layer:  Library libtuiradio-decoders (internal to the AX.25 decoder)
 //
 //  Where this file comes from
 //  --------------------------
@@ -23,7 +23,7 @@
 //
 //  Contributing
 //  ------------
-//  Changes from AX25Toolkit are marked "OFFgrid:".  Run
+//  Changes from AX25Toolkit are marked "TUIRadio:".  Run
 //  tests/test_decoders_ax25.cpp after any change.
 // ============================================================================
 //
@@ -106,7 +106,7 @@ void Decoder::receive_bit(int raw) {
     // ---- Flag detection (0x7E = 01111110) ----
     if (pat_det_ == FLAG) {
         // If we were collecting and have enough data (min AX.25 = 15 bytes + 2 FCS)
-        // OFFgrid: and only when the frame ended on a byte boundary (the
+        // TUIRadio: and only when the frame ended on a byte boundary (the
         // flag's first 7 bits are in oacc_): olen_ == 7.
         if (collecting_ && frame_len_ >= 17 && olen_ == 7) {
             // Check FCS: last 2 bytes are the received FCS
@@ -238,7 +238,7 @@ void Encoder::send_frame(const uint8_t* data, size_t len, int preamble_flags, in
         send_byte_nrzi(data[i], true);
 
     // FCS (sent LSB first, with bit stuffing)
-    if (append_fcs) {   // OFFgrid: optional
+    if (append_fcs) {   // TUIRadio: optional
         uint16_t fcs = fcs_calc(data, len);
         send_byte_nrzi(fcs & 0xff, true);
         send_byte_nrzi((fcs >> 8) & 0xff, true);

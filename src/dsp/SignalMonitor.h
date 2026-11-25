@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-dsp - reusable C++11 radio signal processing (part of OFFgrid-SDR
-//  TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-dsp - reusable C++11 radio signal processing (part of TUIRadio,
+//  https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/dsp/SignalMonitor.h
-//  Layer:  Library liboffgrid-dsp (public header)
+//  Layer:  Library libtuiradio-dsp (public header)
 //
 //  What this file does
 //  -------------------
@@ -53,8 +53,8 @@
 //  them in step with index.html and say so when they differ ("Addition to
 //  the JS").  Ported from OFFgrid-SDR by diddy-boy.
 // ============================================================================
-#ifndef OFFGRID_DSP_SIGNALMONITOR_H
-#define OFFGRID_DSP_SIGNALMONITOR_H
+#ifndef TUIRADIO_DSP_SIGNALMONITOR_H
+#define TUIRADIO_DSP_SIGNALMONITOR_H
 
 #include <complex>
 #include <cstddef>

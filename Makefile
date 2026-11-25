@@ -1,21 +1,21 @@
-# OFFgrid-SDR TUI - a terminal software-defined radio receiver in C++11.
+# TUIRadio - a terminal software-defined radio receiver in C++11.
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 # The program is built from four reusable static libraries (each usable on
 # its own; see the README.md in each src/ directory):
 #
-#   build/lib/liboffgrid-rtlsdr.a    src/usb + src/rtlsdr  RTL-SDR driver (no libusb)
-#   build/lib/liboffgrid-dsp.a       src/dsp               demodulators, RDS, spectrum, demo band
-#   build/lib/liboffgrid-decoders.a  src/decoders          CW, RTTY, PSK, NAVTEX, DSC, Hell (+ encoders)
-#   build/lib/liboffgrid-audio.a     src/audio             sound out (AudioQueue / ALSA / pipe)
+#   build/lib/libtuiradio-rtlsdr.a    src/usb + src/rtlsdr  RTL-SDR driver (no libusb)
+#   build/lib/libtuiradio-dsp.a       src/dsp               demodulators, RDS, spectrum, demo band
+#   build/lib/libtuiradio-decoders.a  src/decoders          CW, RTTY, PSK, NAVTEX, DSC, Hell (+ encoders)
+#   build/lib/libtuiradio-audio.a     src/audio             sound out (AudioQueue / ALSA / pipe)
 #
-#   make                 bin/offgrid (static on Linux; OS libraries only on macOS)
+#   make                 bin/tuiradio (static on Linux; OS libraries only on macOS)
 #   make libs            only the four libraries
 #   make examples        bin/example-* (small programs using one or two libraries)
 #   make tools           bin/rtl-probe
 #   make test            build and run every test
 #   make install         libraries + headers into $(PREFIX) (default /usr/local)
-#   make check-static    show what bin/offgrid links against
+#   make check-static    show what bin/tuiradio links against
 #   make clean
 #
 # Variables: GRAPHICX=path (default external/Graphicx), STATIC=0 (Linux:
@@ -53,12 +53,12 @@ CODECS_SRCS   := $(wildcard src/codecs/*.cpp)
 APP_SRCS      := $(wildcard src/app/*.cpp)
 GFX_SRCS      := $(addprefix $(GRAPHICX)/src/,graphicx.cpp terminal.cpp color.cpp canvas.cpp ui.cpp widgets.cpp png.cpp image_io.cpp)
 
-LIB_RTLSDR   := build/lib/liboffgrid-rtlsdr.a
-LIB_DSP      := build/lib/liboffgrid-dsp.a
-LIB_DECODERS := build/lib/liboffgrid-decoders.a
-LIB_AUDIO    := build/lib/liboffgrid-audio.a
-LIB_SDRC     := build/lib/liboffgrid-sdrconnect.a
-LIB_CODECS   := build/lib/liboffgrid-codecs.a
+LIB_RTLSDR   := build/lib/libtuiradio-rtlsdr.a
+LIB_DSP      := build/lib/libtuiradio-dsp.a
+LIB_DECODERS := build/lib/libtuiradio-decoders.a
+LIB_AUDIO    := build/lib/libtuiradio-audio.a
+LIB_SDRC     := build/lib/libtuiradio-sdrconnect.a
+LIB_CODECS   := build/lib/libtuiradio-codecs.a
 LIB_GFX      := build/lib/libgraphicx.a
 LIBS         := $(LIB_RTLSDR) $(LIB_DSP) $(LIB_DECODERS) $(LIB_CODECS) $(LIB_AUDIO) $(LIB_SDRC)
 
@@ -67,7 +67,7 @@ EXAMPLES := $(patsubst examples/%.cpp,bin/example-%,$(wildcard examples/*.cpp))
 
 .PHONY: all libs examples tools test install clean check-static
 
-all: bin/offgrid
+all: bin/tuiradio
 
 libs: $(LIBS)
 
@@ -85,7 +85,7 @@ build/lib/%.a:
 
 # Link order: users before what they use (decoders need dsp's FFT and the
 # codecs: DAB+ and DRM AAC, DAB MP2).
-bin/offgrid: $(call obj,$(APP_SRCS)) $(LIB_DECODERS) $(LIB_CODECS) $(LIB_DSP) $(LIB_RTLSDR) $(LIB_SDRC) $(LIB_AUDIO) $(LIB_GFX)
+bin/tuiradio: $(call obj,$(APP_SRCS)) $(LIB_DECODERS) $(LIB_CODECS) $(LIB_DSP) $(LIB_RTLSDR) $(LIB_SDRC) $(LIB_AUDIO) $(LIB_GFX)
 	@mkdir -p bin
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ $(SYSLIBS) -o $@
 
@@ -117,18 +117,18 @@ build/%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 install: $(LIBS)
-	mkdir -p $(PREFIX)/lib $(PREFIX)/include/offgrid
+	mkdir -p $(PREFIX)/lib $(PREFIX)/include/tuiradio
 	cp $(LIBS) $(PREFIX)/lib/
 	for d in usb rtlsdr dsp decoders codecs audio sdrconnect; do \
-	  mkdir -p $(PREFIX)/include/offgrid/$$d; cp src/$$d/*.h $(PREFIX)/include/offgrid/$$d/; done
+	  mkdir -p $(PREFIX)/include/tuiradio/$$d; cp src/$$d/*.h $(PREFIX)/include/tuiradio/$$d/; done
 
-check-static: bin/offgrid
+check-static: bin/tuiradio
 ifeq ($(UNAME),Darwin)
 	@echo "macOS cannot link libSystem statically; only OS libraries may appear here:"
-	otool -L bin/offgrid
+	otool -L bin/tuiradio
 else
-	file bin/offgrid
-	-ldd bin/offgrid
+	file bin/tuiradio
+	-ldd bin/tuiradio
 endif
 
 clean:

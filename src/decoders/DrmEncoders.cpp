@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-decoders - reusable C++11 decoders for radio text and picture
-//  modes (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-decoders - reusable C++11 decoders for radio text and picture
+//  modes (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/decoders/DrmEncoders.cpp
-//  Layer:  Library liboffgrid-decoders
+//  Layer:  Library libtuiradio-decoders
 //
 //  What this file does
 //  -------------------
@@ -198,7 +198,7 @@ DrmTxOptions drmDemoStation(int which) {
     DrmTxOptions o;
     o.extras = true;
     if (which == 1) {
-        o.label = "OFFgrid xHE";
+        o.label = "TUIRadio X";
         o.serviceId = 0xf06002;
         o.superframes = 32;
         o.text = "OFFgrid-SDR demo: DRM in xHE-AAC, with station text and a SlideShow picture";
@@ -351,7 +351,7 @@ bool drmSignal(const DrmTxOptions& opt, std::vector<std::complex<float> >& iq, s
             // the picture: MOT in header mode (a header object naming the PNG,
             // then its body), in data groups with CRCs, in packets
             const Bytes png = opt.picture.empty() ? drmDemoSlidePng() : opt.picture;
-            const Bytes name = utf8(opt.pictureName.empty() ? std::string("OFFgrid-SDR.png") : opt.pictureName);
+            const Bytes name = utf8(opt.pictureName.empty() ? std::string("TUIRadio.png") : opt.pictureName);
             Bytes cn(1, 0);
             cn.insert(cn.end(), name.begin(), name.end());
             const unsigned long long hs = 7 + 2 + cn.size();
@@ -432,8 +432,8 @@ bool drmSignal(const DrmTxOptions& opt, std::vector<std::complex<float> >& iq, s
                 J::add(o, 0x01);
                 J::add(o, "The demo's DRM stations");
                 J::add(o, 0x04), J::add(o, 0x12), J::add(o, "Frequency"), J::add(o, 0x13), J::add(o, 0x05), J::add(o, 0x12), J::add(o, "Station"), J::add(o, 0x13);
-                J::add(o, 0x04), J::add(o, "11.700 MHz"), J::add(o, 0x05), J::add(o, "OFFgrid DRM (AAC)");
-                J::add(o, 0x04), J::add(o, "11.750 MHz"), J::add(o, 0x05), J::add(o, "OFFgrid xHE (xHE-AAC)");
+                J::add(o, 0x04), J::add(o, "11.700 MHz"), J::add(o, 0x05), J::add(o, "TUIRadio DRM (AAC)");
+                J::add(o, 0x04), J::add(o, "11.750 MHz"), J::add(o, 0x05), J::add(o, "TUIRadio xHE (xHE-AAC)");
             }
             {
                 Bytes& o = objs[3];

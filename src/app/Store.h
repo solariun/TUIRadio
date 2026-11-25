@@ -1,6 +1,6 @@
 // ============================================================================
-//  OFFgrid-SDR TUI - a terminal software-defined radio receiver, in C++11.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr).
+//  TUIRadio - a terminal software-defined radio receiver, in C++11.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   src/app/Store.h
@@ -8,7 +8,7 @@
 //
 //  What this file does
 //  -------------------
-//  app::Store keeps, in $XDG_CONFIG_HOME/offgrid (or ~/.config/offgrid):
+//  app::Store keeps, in $XDG_CONFIG_HOME/tuiradio (or ~/.config/tuiradio):
 //    settings.ini   the last frequency, mode, volume, theme ... ([settings]),
 //                   the memories ([memories]), the frequency labels
 //                   ([labels]) and each band's last frequency ([bands])
@@ -27,8 +27,8 @@
 //  Text fields never contain '|' or line breaks (they are replaced by
 //  spaces on the way in).
 // ============================================================================
-#ifndef OFFGRID_APP_STORE_H
-#define OFFGRID_APP_STORE_H
+#ifndef TUIRADIO_APP_STORE_H
+#define TUIRADIO_APP_STORE_H
 
 #include <map>
 #include <string>
@@ -61,7 +61,7 @@ struct LogEntry {
 
 class Store {
 public:
-    // The directory (created on save).  OFFGRID_CONFIG overrides it (tests).
+    // The directory (created on save).  TUIRADIO_CONFIG overrides it (tests).
     static std::string directory();
 
     // Reads settings.ini; a missing file is not an error.

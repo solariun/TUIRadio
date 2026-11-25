@@ -1,10 +1,10 @@
 // ============================================================================
-//  offgrid-dsp - liboffgrid-dsp, the signal processing library of OFFgrid-SDR TUI.
-//  Port of OFFgrid-SDR (https://github.com/solariun/offgrid-sdr) by diddy-boy.
+//  tuiradio-dsp - libtuiradio-dsp, the signal processing library of TUIRadio.
+//  Based on OFFgrid-SDR by diddy-boy (https://github.com/solariun/offgrid-sdr).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   tests/test_filters.cpp
-//  Layer:  Tests (library liboffgrid-dsp)
+//  Layer:  Tests (library libtuiradio-dsp)
 //
 //  What this file does
 //  -------------------
@@ -976,7 +976,7 @@ int main(int argc, char** argv) {
         }
         if (std::strcmp(argv[i], "--rnn-ref") == 0 && i + 1 < argc) refPath = argv[++i];
     }
-    std::printf("Audio clean-up filters and AI voice cleaner (liboffgrid-dsp)\n");
+    std::printf("Audio clean-up filters and AI voice cleaner (libtuiradio-dsp)\n");
     testNoiseBlanker();
     testNoiseReduction();
     testHum();

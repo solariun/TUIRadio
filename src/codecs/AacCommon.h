@@ -1,13 +1,12 @@
 // ============================================================================
-//  offgrid-codecs - shared definitions (part of OFFgrid-SDR TUI,
-//  https://github.com/solariun/offgrid-sdr).
+//  tuiradio-codecs - shared definitions (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 //  Ported to C++11 from FAAD2 (GPL-2.0-or-later, commit a335040, as built by
 //  OFFgrid-SDR: see licenses/FAAD2). FAAD2's own notice, kept below, applies
 //  to the code taken from it; "Code from FAAD2 is copyright (c) Nero AG".
 // ----------------------------------------------------------------------------
 //  File:   src/codecs/AacCommon.h
-//  Layer:  Library liboffgrid-codecs (internal: the FAAD2 port)
+//  Layer:  Library libtuiradio-codecs (internal: the FAAD2 port)
 //
 //  What this file does
 //  -------------------
@@ -59,8 +58,8 @@
 ** $Id: common.h,v 1.79 2015/01/26 17:48:53 knik Exp $
 **/
 
-#ifndef OFFGRID_CODECS_AACCOMMON_H
-#define OFFGRID_CODECS_AACCOMMON_H
+#ifndef TUIRADIO_CODECS_AACCOMMON_H
+#define TUIRADIO_CODECS_AACCOMMON_H
 
 #include <cstdio>
 #include <cstdlib>
@@ -150,4 +149,4 @@ void faad_free(void *b);
 } // namespace faad
 } // namespace codec
 
-#endif // OFFGRID_CODECS_AACCOMMON_H
+#endif // TUIRADIO_CODECS_AACCOMMON_H

@@ -1,14 +1,14 @@
 // ============================================================================
-//  offgrid-sdrconnect - an SDRplay RSP through SDRplay's SDRconnect WebSocket
-//  API, in C++11 (part of OFFgrid-SDR TUI, https://github.com/solariun/offgrid-sdr).
+//  tuiradio-sdrconnect - an SDRplay RSP through SDRplay's SDRconnect WebSocket
+//  API, in C++11 (part of TUIRadio, https://github.com/solariun/TUIRadio).
 //  SPDX-License-Identifier: GPL-3.0-or-later
 // ----------------------------------------------------------------------------
 //  File:   tests/test_sdrconnect.cpp
-//  Layer:  Tests (Library liboffgrid-sdrconnect)
+//  Layer:  Tests (Library libtuiradio-sdrconnect)
 //
 //  What this file does
 //  -------------------
-//  Self-checking test of liboffgrid-sdrconnect.  Prints PASS/FAIL per check,
+//  Self-checking test of libtuiradio-sdrconnect.  Prints PASS/FAIL per check,
 //  returns nonzero on any failure:
 //    - SHA-1 (FIPS 180 / RFC 3174 vectors), base64 (RFC 4648 section 10),
 //      the RFC 6455 handshake example (Sec-WebSocket-Accept);
@@ -952,7 +952,7 @@ void testClient() {
 }  // namespace
 
 int main() {
-    std::printf("== liboffgrid-sdrconnect tests ==\n");
+    std::printf("== libtuiradio-sdrconnect tests ==\n");
     testHashes();
     testFrames();
     testHelpers();
